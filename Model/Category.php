@@ -21,6 +21,20 @@ class Category extends \Magento\Framework\Model\AbstractModel implements Categor
      */
     public $uploaderPool;
 
+    /**
+     * Url Prefix
+     *
+     * @var string
+     */
+    const URL_PREFIX = 'vuefront-blog-category';
+
+    /**
+     * Url extension
+     *
+     * @var string
+     */
+    const URL_EXT = '.html';
+
     public function __construct(
         UploaderPool $uploaderPool,
         Context $context,
@@ -61,6 +75,11 @@ class Category extends \Magento\Framework\Model\AbstractModel implements Categor
         return $this->getData(CategoryInterface::PARENT_ID);
     }
 
+    public function getKeyword()
+    {
+        return $this->getData(CategoryInterface::KEYWORD);
+    }
+
     public function getMetaTitle()
     {
         return $this->getData(CategoryInterface::META_TITLE);
@@ -74,6 +93,11 @@ class Category extends \Magento\Framework\Model\AbstractModel implements Categor
     public function getMetaDescription()
     {
         return $this->getData(CategoryInterface::META_DESCRIPTION);
+    }
+
+    public function getSortOrder()
+    {
+        return $this->getData(CategoryInterface::SORT_ORDER);
     }
 
     public function getDateAdded()
@@ -136,21 +160,33 @@ class Category extends \Magento\Framework\Model\AbstractModel implements Categor
         return $this;
     }
 
+    public function setKeyword($keyword)
+    {
+        $this->setData(CategoryInterface::KEYWORD, $keyword);
+        return $this;
+    }
+
     public function setMetaTitle($meta_title)
     {
-        $this->setData(CategoryInterface::META_TITLE);
+        $this->setData(CategoryInterface::META_TITLE, $meta_title);
         return $this;
     }
 
     public function setMetaKeywords($meta_keywords)
     {
-        $this->setData(CategoryInterface::META_KEYWORDS);
+        $this->setData(CategoryInterface::META_KEYWORDS, $meta_keywords);
         return $this;
     }
 
     public function setMetaDescription($meta_description)
     {
-        $this->setData(CategoryInterface::META_DESCRIPTION);
+        $this->setData(CategoryInterface::META_DESCRIPTION, $meta_description);
+        return $this;
+    }
+
+    public function setSortOrder($sort_order)
+    {
+        $this->setData(CategoryInterface::SORT_ORDER, $sort_order);
         return $this;
     }
 

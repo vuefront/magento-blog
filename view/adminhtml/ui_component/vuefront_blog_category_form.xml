@@ -70,9 +70,9 @@
                     <item name="formElement" xsi:type="string">input</item>
                     <item name="source" xsi:type="string">category</item>
                     <item name="dataScope" xsi:type="string">title</item>
-                </item>
-                <item name="validation" xsi:type="array">
-                    <item name="min_text_length" xsi:type="number">3</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
                 </item>
             </argument>
         </field>
@@ -98,7 +98,20 @@
                 </item>
             </argument>
         </field>
-
+        <field name="sort_order">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Sort Order</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="source" xsi:type="string">category</item>
+                    <item name="dataScope" xsi:type="string">sort_order</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
     </fieldset>
     <fieldset name="content">
         <argument name="data" xsi:type="array">
@@ -106,6 +119,9 @@
                 <item name="collapsible" xsi:type="boolean">true</item>
                 <item name="label" xsi:type="string" translate="true">Content</item>
                 <item name="sortOrder" xsi:type="number">25</item>
+                <item name="validation" xsi:type="array">
+                    <item name="required-entry" xsi:type="boolean">true</item>
+                </item>
             </item>
         </argument>
         <field name="image">
@@ -144,6 +160,9 @@
                     <item name="formElement" xsi:type="string">wysiwyg</item>
                     <item name="source" xsi:type="string">category</item>
                     <item name="dataScope" xsi:type="string">description</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
                 </item>
             </argument>
         </field>
@@ -156,6 +175,20 @@
                 <item name="sortOrder" xsi:type="number">30</item>
             </item>
         </argument>
+        <field name="identifier">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">URL Key</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="source" xsi:type="string">category</item>
+                    <item name="dataScope" xsi:type="string">identifier</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
         <field name="meta_title">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
@@ -164,6 +197,9 @@
                     <item name="formElement" xsi:type="string">input</item>
                     <item name="source" xsi:type="string">category</item>
                     <item name="dataScope" xsi:type="string">meta_title</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
                 </item>
             </argument>
         </field>
@@ -186,6 +222,31 @@
                     <item name="formElement" xsi:type="string">input</item>
                     <item name="source" xsi:type="string">category</item>
                     <item name="dataScope" xsi:type="string">meta_description</item>
+                </item>
+            </argument>
+        </field>
+    </fieldset>
+    <fieldset name="websites" class="Magento\Store\Ui\Component\Form\Fieldset\Websites">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="collapsible" xsi:type="boolean">true</item>
+                <item name="label" xsi:type="string" translate="true">Category in Websites</item>
+                <item name="sortOrder" xsi:type="number">40</item>
+            </item>
+        </argument>
+        <field name="storeviews">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">Magento\Cms\Ui\Component\Listing\Column\Cms\Options</item>
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">int</item>
+                    <item name="label" xsi:type="string" translate="true">Store View</item>
+                    <item name="formElement" xsi:type="string">multiselect</item>
+                    <item name="source" xsi:type="string">category</item>
+                    <item name="dataScope" xsi:type="string">store_ids</item>
+                    <item name="default" xsi:type="string">0</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
                 </item>
             </argument>
         </field>

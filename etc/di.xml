@@ -63,9 +63,4 @@
             <argument name="uploaderPool" xsi:type="object">Vuefront\Blog\Model\UploaderPool</argument>
         </arguments>
     </type>
-<!--    <type name="Vuefront\Blog\Model\Image">-->
-<!--        <arguments>-->
-<!--            <argument name="uploader" xsi:type="object">VuefrontBlogImageUploader</argument>-->
-<!--        </arguments>-->
-<!--    </type>-->
 </config>

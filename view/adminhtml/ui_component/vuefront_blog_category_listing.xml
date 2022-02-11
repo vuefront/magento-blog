@@ -1,10 +1,10 @@
 <listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
     <argument name="data" xsi:type="array">
         <item name="js_config" xsi:type="array">
-            <item name="provider" xsi:type="string">category_listing.category_listing_data_source</item>
-            <item name="deps" xsi:type="string">category_listing.category_listing_data_source</item>
+            <item name="provider" xsi:type="string">vuefront_blog_category_listing.category_listing_data_source</item>
+            <item name="deps" xsi:type="string">vuefront_blog_category_listing.category_listing_data_source</item>
         </item>
-        <item name="spinner" xsi:type="string">category_listing_columns</item>
+        <item name="spinner" xsi:type="string">vuefront_blog_category_listing_columns</item>
         <item name="buttons" xsi:type="array">
             <item name="add" xsi:type="array">
                 <item name="name" xsi:type="string">add</item>
@@ -96,7 +96,7 @@
                         <item name="type" xsi:type="string">edit</item>
                         <item name="label" xsi:type="string" translate="true">Edit</item>
                         <item name="callback" xsi:type="array">
-                            <item name="provider" xsi:type="string">category_listing.category_listing.category_listing_columns_editor</item>
+                            <item name="provider" xsi:type="string">vuefront_blog_category_listing.vuefront_blog_category_listing.vuefront_blog_category_listing_columns_editor</item>
                             <item name="target" xsi:type="string">editSelected</item>
                         </item>
                     </item>
@@ -105,7 +105,7 @@
         </massaction>
         <paging name="listing_paging"/>
     </listingToolbar>
-    <columns name="category_listing_columns">
+    <columns name="vuefront_blog_category_listing_columns">
         <selectionsColumn name="ids" sortOrder="0">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">

@@ -44,6 +44,11 @@ class InstallSchema implements InstallSchemaInterface
             255,
             ['nullable' => true]
         )->addColumn(
+            'keyword',
+            \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
+            100,
+            ['nullable' => true]
+        )->addColumn(
             'meta_title',
             \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
             255,
@@ -58,6 +63,11 @@ class InstallSchema implements InstallSchemaInterface
             \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
             null,
             ['nullable' => false, 'default' => '']
+        )->addColumn(
+            'sort_order',
+            \Magento\Framework\DB\Ddl\Table::TYPE_INTEGER,
+            null,
+            ['nullable' => false, 'default' => 0]
         )->addColumn(
             'date_added',
             \Magento\Framework\DB\Ddl\Table::TYPE_TIMESTAMP,

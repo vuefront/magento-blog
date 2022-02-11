@@ -14,9 +14,11 @@ interface CategoryInterface
     const DESCRIPTION         = 'description';
     const IMAGE = 'image';
     const PARENT_ID = 'parent_id';
+    const KEYWORD = 'keyword';
     const META_TITLE = 'meta_title';
     const META_KEYWORDS = 'meta_keywords';
     const META_DESCRIPTION = 'meta_description';
+    const SORT_ORDER = 'sort_order';
     const DATE_ADDED = 'date_added';
     const DATE_MODIFIED = 'date_modified';
     /**
@@ -53,6 +55,11 @@ interface CategoryInterface
     public function getParentId();
 
     /**
+     * Get Keyword
+     * @return string
+     */
+    public function getKeyword();
+    /**
      * Get Meta Title
      * @return string
      */
@@ -69,6 +76,12 @@ interface CategoryInterface
      * @return string
      */
     public function getMetaDescription();
+
+    /**
+     * Get Sort Order
+     * @return int
+     */
+    public function getSortOrder();
     /**
      * Get Date Added
      * @return string
@@ -119,6 +132,11 @@ interface CategoryInterface
     public function setParentId($parentId);
 
     /**
+     * @param string $keyword
+     * @return $this
+     */
+    public function setKeyword($keyword);
+    /**
      * @param string $meta_title
      * @return $this
      */
@@ -135,6 +153,12 @@ interface CategoryInterface
      * @return $this
      */
     public function setMetaDescription($meta_description);
+
+    /**
+     * @param int $sort_order
+     * @return $this
+     */
+    public function setSortOrder($sort_order);
 
     /**
      * Set Date Modified

@@ -25,6 +25,11 @@ class CategoryActions extends Column
      */
     private $editUrl;
 
+    /**
+     * @var string
+     */
+    private $deleteUrl;
+
      /**
       * @param ContextInterface   $context
       * @param UiComponentFactory $uiComponentFactory
@@ -41,7 +46,8 @@ class CategoryActions extends Column
         UrlInterface $urlBuilder,
         array $components = [],
         array $data = [],
-        $editUrl = self::BLOG_URL_PATH_EDIT
+        $editUrl = self::BLOG_URL_PATH_EDIT,
+        $deleteUrl = self::BLOG_URL_PATH_DELETE
     ) {
         $this->urlBuilder = $urlBuilder;
         $this->actionUrlBuilder = $actionUrlBuilder;
@@ -63,6 +69,10 @@ class CategoryActions extends Column
                     $item[$name]['edit'] = [
                         'href' => $this->urlBuilder->getUrl($this->editUrl, ['category_id' => $item['category_id']]),
                         'label' => __('Edit'),
+                    ];
+                    $item[$name]['delete'] = [
+                        'href' => $this->urlBuilder->getUrl($this->deleteUrl, ['category_id' => $item['category_id']]),
+                        'label' => __('Delete'),
                     ];
                 }
             }
