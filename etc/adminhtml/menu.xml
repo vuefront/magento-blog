@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+
+        <add id="Vuefront_Blog::blog" title="Blog" translate="title" module="Vuefront_Blog" sortOrder="10" dependsOnModule="Vuefront_Blog" resource="Vuefront_Blog::blog"/>
+        <add id="Vuefront_Blog::blog_posts" title="Posts" translate="title" module="Vuefront_Blog"
+             parent="Vuefront_Blog::blog" sortOrder="1" dependsOnModule="Vuefront_Blog"
+             action="vuefront_blog/post" resource="Vuefront_Blog::blog"/>
+        <add id="Vuefront_Blog::categories" title="Categories" module="Vuefront_Blog" sortOrder="2"
+             action="vuefront_blog/category"
+             parent="Vuefront_Blog::blog"
+             resource="Vuefront_Blog::blog"/>
+        <add id="Vuefront_Blog::reviews" title="Reviews" module="Vuefront_Blog" sortOrder="3"
+             action="vuefront_blog/reviews"
+             parent="Vuefront_Blog::blog"
+             resource="Vuefront_Blog::blog"/>
+        <add id="Vuefront_Blog::settings" title="Settings" module="Vuefront_Blog" sortOrder="4"
+             action="adminhtml/system_config/edit/section/blog"
+             parent="Vuefront_Blog::blog"
+             resource="Vuefront_Blog::blog"/>
+    </menu>
+</config>

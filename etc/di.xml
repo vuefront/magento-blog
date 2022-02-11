@@ -1,0 +1,71 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+
+    <preference for="Vuefront\Blog\Api\PostRepositoryInterface" type="Vuefront\Blog\Model\PostRepository" />
+    <preference for="Vuefront\Blog\Api\CategoryRepositoryInterface" type="Vuefront\Blog\Model\CategoryRepository" />
+    <preference for="Vuefront\Blog\Api\Data\PostInterface" type="Vuefront\Blog\Model\Post" />
+    <preference for="Vuefront\Blog\Api\Data\CategoryInterface" type="Vuefront\Blog\Model\Category" />
+
+    <type name="Vuefront\Blog\Model\ResourceModel\Post\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">vuefront_blog_post</argument>
+            <argument name="eventPrefix" xsi:type="string">vuefront_blog_post_grid_collection</argument>
+            <argument name="eventObject" xsi:type="string">post_grid_collection</argument>
+            <argument name="resourceModel" xsi:type="string">Vuefront\Blog\Model\ResourceModel\Post</argument>
+        </arguments>
+    </type>
+
+    <type name="Vuefront\Blog\Model\ResourceModel\Category\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">vuefront_blog_category</argument>
+            <argument name="eventPrefix" xsi:type="string">vuefront_blog_category_grid_collection</argument>
+            <argument name="eventObject" xsi:type="string">category_grid_collection</argument>
+            <argument name="resourceModel" xsi:type="string">Vuefront\Blog\Model\ResourceModel\Category</argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="post_listing_data_source" xsi:type="string">Vuefront\Blog\Model\ResourceModel\Post\Grid\Collection</item>
+                <item name="category_listing_data_source" xsi:type="string">Vuefront\Blog\Model\ResourceModel\Category\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    <virtualType name="VuefrontBlogImageUploader" type="Vuefront\Blog\Model\Uploader">
+        <arguments>
+            <argument name="baseTmpPath" xsi:type="const">Vuefront\Blog\Model\Uploader::IMAGE_TMP_PATH</argument>
+            <argument name="basePath" xsi:type="const">Vuefront\Blog\Model\Uploader::IMAGE_PATH</argument>
+            <argument name="allowedExtensions" xsi:type="array">
+                <item name="jpg" xsi:type="string">jpg</item>
+                <item name="jpeg" xsi:type="string">jpeg</item>
+                <item name="gif" xsi:type="string">gif</item>
+                <item name="png" xsi:type="string">png</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <type name="Vuefront\Blog\Controller\Adminhtml\Category\Image\Upload">
+        <arguments>
+            <argument name="uploader" xsi:type="object">VuefrontBlogImageUploader</argument>
+        </arguments>
+    </type>
+    <type name="Vuefront\Blog\Model\UploaderPool">
+        <arguments>
+            <argument name="uploaders" xsi:type="array">
+                <item name="image" xsi:type="string">VuefrontBlogImageUploader</item>
+<!--                <item name="file" xsi:type="string">Mage360BrandsFileUploader</item>-->
+            </argument>
+        </arguments>
+    </type>
+    <type name="Vuefront\Blog\Model\Category">
+        <arguments>
+            <argument name="uploaderPool" xsi:type="object">Vuefront\Blog\Model\UploaderPool</argument>
+        </arguments>
+    </type>
+<!--    <type name="Vuefront\Blog\Model\Image">-->
+<!--        <arguments>-->
+<!--            <argument name="uploader" xsi:type="object">VuefrontBlogImageUploader</argument>-->
+<!--        </arguments>-->
+<!--    </type>-->
+</config>

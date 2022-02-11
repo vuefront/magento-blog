@@ -1,0 +1,31 @@
+<?php
+
+namespace Vuefront\Blog\Controller\Adminhtml;
+
+class Post extends Actions
+{
+    protected $_formSessionKey = 'vuefront_blog_post_form_data';
+
+    protected $_allowedKey = 'Vuefront_Blog::[post]';
+
+    /**
+     * Model class name.
+     *
+     * @var string
+     */
+    protected $_modelClass = \Vuefront\Blog\Model\Post::class;
+
+    /**
+     * Active menu key.
+     *
+     * @var string
+     */
+    protected $_activeMenu = 'Vuefront_Blog::category';
+
+    /**
+     * Status field name.
+     *
+     * @var string
+     */
+    protected $_statusField = 'is_active';
+}

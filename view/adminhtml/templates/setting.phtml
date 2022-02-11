@@ -1,0 +1,25 @@
+<div class="vuefront-content module-content">
+    <?php
+    $storeManager = \Magento\Framework\App\ObjectManager::getInstance()
+        ->get(\Magento\Store\Model\StoreManagerInterface::class);
+    $moduleManager = \Magento\Framework\App\ObjectManager::getInstance()->get(\Magento\Framework\Module\Manager::class);
+    $uriBuilder = \Magento\Framework\App\ObjectManager::getInstance()->get(\Magento\Backend\Model\UrlInterface::class);
+    $tokenModel = \Magento\Framework\App\ObjectManager::getInstance()
+        ->get(\Magento\Integration\Model\Oauth\Token::class);
+    $authModel = \Magento\Framework\App\ObjectManager::getInstance()->get(\Magento\Backend\Model\Auth\Session::class);
+    $adminUserId = $authModel->getUser()->getId();
+    ?>
+    <vf-app class="vuefront-app"></vf-app>
+</div>
+<script lang="text/javascript">
+require(['vuefront'], function(){
+  vuefront({
+    selector: '.vuefront-app',
+    token: '<?= $block->escapeUrl($tokenModel->createAdminToken($adminUserId)->getToken()) ?>',
+    baseURL: '<?= $block->escapeUrl($storeManager->getStore()->getBaseUrl()) ?>',
+    siteUrl: '<?= $block->escapeUrl($storeManager->getStore()->getBaseUrl()) ?>',
+    apiURL: '',
+    type: 'magento'
+  })
+});
+</script>
