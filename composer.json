@@ -1,0 +1,22 @@
+{
+  "name": "vuefront/module-blog",
+  "description": "Vuefront Blog for magento2",
+  "type": "magento2-module",
+  "version": "0.1.0",
+  "canonical": false,
+  "require": {
+    "ext-json": "*"
+  },
+  "license": [
+    "OSL-3.0",
+    "AFL-3.0"
+  ],
+  "autoload": {
+    "files": [
+      "registration.php"
+    ],
+    "psr-4": {
+      "Vuefront\\Blog\\": ""
+    }
+  }
+}
