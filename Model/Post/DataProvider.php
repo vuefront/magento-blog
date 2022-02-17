@@ -3,9 +3,15 @@ namespace Vuefront\Blog\Model\Post;
 
 use Magento\Ui\DataProvider\AbstractDataProvider;
 use Vuefront\Blog\Model\ResourceModel\Post\CollectionFactory;
+use Magento\Ui\DataProvider\Modifier\ModifierInterface;
+use Magento\Ui\DataProvider\Modifier\PoolInterface;
 
 class DataProvider extends AbstractDataProvider
 {
+    /**
+     * @var PoolInterface
+     */
+    public $pool;
     /**
      * @var array
      */
@@ -21,6 +27,7 @@ class DataProvider extends AbstractDataProvider
      * @param string            $primaryFieldName
      * @param string            $requestFieldName
      * @param CollectionFactory $postCollectionFactory
+     * @param PoolInterface $pool
      * @param array             $meta
      * @param array             $data
      */
@@ -29,9 +36,11 @@ class DataProvider extends AbstractDataProvider
         $primaryFieldName,
         $requestFieldName,
         CollectionFactory $postCollectionFactory,
+        PoolInterface $pool,
         array $meta = [],
         array $data = []
     ) {
+        $this->pool = $pool;
         $this->collection   = $postCollectionFactory;
         parent::__construct($name, $primaryFieldName, $requestFieldName, $meta, $data);
     }
@@ -54,14 +63,14 @@ class DataProvider extends AbstractDataProvider
      */
     public function getData()
     {
-        if (isset($this->_loadedData)) {
-            return $this->_loadedData;
-        }
-        $items = $this->getCollection()->getItems();
-        foreach ($items as $employee) {
-            $this->_loadedData[$employee->getId()] = $employee->getData();
+        /**
+        * @var ModifierInterface $modifier
+        */
+
+        foreach ($this->pool->getModifiersInstances() as $modifier) {
+            $this->data = $modifier->modifyData($this->data);
         }
 
-        return $this->_loadedData;
+        return $this->data;
     }
 }

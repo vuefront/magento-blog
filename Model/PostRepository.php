@@ -5,15 +5,16 @@ use Magento\Framework\Api\DataObjectHelper;
 use Magento\Framework\Api\SearchCriteriaInterface;
 use Magento\Framework\Api\Search\FilterGroup;
 use Magento\Framework\Api\SortOrder;
+use Magento\Framework\App\ObjectManager;
+use Magento\Framework\EntityManager\HydratorInterface;
 use Magento\Framework\Exception\CouldNotSaveException;
 use Magento\Framework\Exception\StateException;
 use Magento\Framework\Exception\ValidatorException;
 use Magento\Framework\Exception\NoSuchEntityException;
-use Magento\Store\Model\StoreManagerInterface;
 
+use Magento\Store\Model\StoreManagerInterface;
 use Vuefront\Blog\Api\PostRepositoryInterface;
 
-use Vuefront\Blog\Api\Data;
 use Vuefront\Blog\Api\Data\PostInterface;
 use Vuefront\Blog\Api\Data\PostInterfaceFactory;
 use Vuefront\Blog\Api\Data\PostSearchResultsInterface;
@@ -33,13 +34,14 @@ class PostRepository implements PostRepositoryInterface
      */
     public $resource;
     /**
-     * @var StoreManagerInterface
-     */
-    public $storeManager;
-    /**
      * @var PostCollectionFactory
      */
     public $postCollectionFactory;
+    /**
+     * @var StoreManagerInterface
+     */
+    public $storeManager;
+
     /**
      * @var PostSearchResultsInterfaceFactory
      */
@@ -53,20 +55,27 @@ class PostRepository implements PostRepositoryInterface
      */
     public $dataObjectHelper;
 
+    /**
+     * @var HydratorInterface
+     */
+    private $hydrator;
     public function __construct(
         ResourcePost $resource,
-        StoreManagerInterface $storeManager,
         PostCollectionFactory $postCollectionFactory,
         PostSearchResultsInterfaceFactory $postSearchResultsInterfaceFactory,
         PostInterfaceFactory $postInterfaceFactory,
-        DataObjectHelper $dataObjectHelper
+        DataObjectHelper $dataObjectHelper,
+        StoreManagerInterface $storeManager,
+        ?HydratorInterface $hydrator = null
     ) {
-        $this->resource                 = $resource;
         $this->storeManager             = $storeManager;
+        $this->resource                 = $resource;
         $this->postCollectionFactory    = $postCollectionFactory;
         $this->searchResultsFactory     = $postSearchResultsInterfaceFactory;
         $this->postInterfaceFactory     = $postInterfaceFactory;
         $this->dataObjectHelper         = $dataObjectHelper;
+        $this->hydrator                  = $hydrator ?: ObjectManager::getInstance()
+        ->get(HydratorInterface::class);
     }
     /**
      * Save page.
@@ -81,6 +90,16 @@ class PostRepository implements PostRepositoryInterface
          * @var PostInterface|\Magento\Framework\Model\AbstractModel $post
          */
         try {
+            $postId = $post->getId();
+            if ($postId && !($post instanceof Post && $post->getOrigData())) {
+                $post = $this->hydrator->hydrate($this->getById($postId), $this->hydrator->extract($post));
+            }
+
+            if ($post->getStoreId() === null) {
+                $storeId = $this->storeManager->getStore()->getId();
+                $post->setStoreId($storeId);
+            }
+
             $this->resource->save($post);
         } catch (\Exception $exception) {
             throw new CouldNotSaveException(
@@ -195,7 +214,6 @@ class PostRepository implements PostRepositoryInterface
      */
     public function delete(PostInterface $post)
     {
-
         $id = $post->getId();
         try {
             unset($this->instances[$id]);

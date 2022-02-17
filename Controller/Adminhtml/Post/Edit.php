@@ -2,7 +2,6 @@
 
 namespace Vuefront\Blog\Controller\Adminhtml\Post;
 
-use Magento\Framework\Controller\ResultFactory;
 use Vuefront\Blog\Api\PostRepositoryInterface;
 use Vuefront\Blog\Controller\RegistryConstants;
 
@@ -63,7 +62,7 @@ class Edit extends \Magento\Backend\App\Action
         return $resultPage;
     }
 
-    private function _initBrand()
+    private function _initPost()
     {
         $postId = $this->getRequest()->getParam('post_id');
         $this->_coreRegistry->register(RegistryConstants::CURRENT_POST_ID, $postId);
@@ -76,7 +75,7 @@ class Edit extends \Magento\Backend\App\Action
      */
     public function execute()
     {
-        $postId = $this->_initBrand();
+        $postId = $this->_initPost();
 
         /**
          * @var \Magento\Backend\Model\View\Result\Page $resultPage
@@ -97,7 +96,7 @@ class Edit extends \Magento\Backend\App\Action
                 $this->postRepository->getById($postId)->getTitle()
             );
         }
+
         return $resultPage;
     }
-
 }

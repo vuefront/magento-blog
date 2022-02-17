@@ -26,7 +26,7 @@ use Magento\Backend\App\Action;
 class NewAction extends Action
 {
     /**
-     * @var \Magento\Backend\Model\View\Result\Forward
+     * @var \Magento\Backend\Model\View\Result\ForwardFactory
      */
     protected $resultForwardFactory;
 
@@ -43,7 +43,7 @@ class NewAction extends Action
      */
     protected function _isAllowed()
     {
-        return true; //$this->_authorization->isAllowed('Vuefront_Blog::post_edit');
+        return $this->_authorization->isAllowed('Vuefront_Blog::post_edit');
     }
 
     /**

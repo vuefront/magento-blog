@@ -20,14 +20,6 @@ class Uploader
      * @var string
      */
     const IMAGE_PATH        = 'vuefront_blog/category/image';
-    /**
-     * @var string
-     */
-    const FILE_TMP_PATH     = 'vuefront_blog/tmp/category/file';
-    /**
-     * @var string
-     */
-    const FILE_PATH         = 'vuefront_blog/category/file';
 
     /**
      * Core file storage database
@@ -203,8 +195,6 @@ class Uploader
      */
     public function moveFileFromTmp($name)
     {
-        echo "<pre>"; print_r('moveFileFromTmp'); echo "</pre>";
-        echo "<pre>"; print_r($name); echo "</pre>";
         $baseTmpPath = $this->getBaseTmpPath();
         $basePath = $this->getBasePath();
 

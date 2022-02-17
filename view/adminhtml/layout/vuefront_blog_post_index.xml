@@ -7,7 +7,7 @@
     </referenceBlock>
     <body>
         <referenceContainer name="content">
-            <uiComponent name="post_listing"/>
+            <uiComponent name="vuefront_blog_post_listing"/>
         </referenceContainer>
     </body>
 </page>

@@ -80,11 +80,13 @@ class Save extends Action
         UrlRewriteFactory $urlRewriteFactory,
         DataObjectProcessor $dataObjectProcessor,
         StoreManagerInterface $storeManager,
+        BaseUrlRewrite $urlRewrite,
         CategoryRepositoryInterface $categoryRepository,
         CategoryInterfaceFactory $categoryFactory,
         Context $context,
         UploaderPool $uploaderPool
     ) {
+        $this->urlRewrite = $urlRewrite;
         $this->urlFinder = $urlFinder;
         $this->storeManager = $storeManager;
         $this->categoryFactory = $categoryFactory;
@@ -130,7 +132,7 @@ class Save extends Action
                     $category->setParentId(0);
                 }
             }
-            $image = $this->getUploader('image')->uploadFileAndGetName('image', $data);
+            $image = $this->getUploader('image-category')->uploadFileAndGetName('image', $data);
             $category->setImage($image);
             $this->categoryRepository->save($category);
 
@@ -218,7 +220,7 @@ class Save extends Action
             $rewriteFinderOldUrl = $this->urlFinder->findOneByData($filterDataOldUrl);
 
             if ($rewriteFinderOldUrl !== null) {
-                $this->urlRewrite->load($rewriteFinderOldUrl->getUrlRewriteId())->delete();
+                $this->urlRewriteService->load($rewriteFinderOldUrl->getUrlRewriteId())->delete();
             }
 
             // check maybe there is an old id with different url, in this case load the id and update the url

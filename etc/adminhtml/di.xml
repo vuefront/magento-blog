@@ -14,4 +14,21 @@
             <argument name="pool" xsi:type="object">VuefrontBlogUiDataProviderCategoryFormModifierPool</argument>
         </arguments>
     </type>
+
+
+    <virtualType name="VuefrontBlogUiDataProviderPostFormModifierPool" type="Magento\Ui\DataProvider\Modifier\Pool">
+    <arguments>
+        <argument name="modifiers" xsi:type="array">
+            <item name="post_data" xsi:type="array">
+                <item name="class" xsi:type="string">Vuefront\Blog\Ui\DataProvider\Post\Form\Modifier\PostData</item>
+                <item name="sortOrder" xsi:type="number">10</item>
+            </item>
+        </argument>
+    </arguments>
+</virtualType>
+    <type name="Vuefront\Blog\Model\Post\DataProvider">
+        <arguments>
+            <argument name="pool" xsi:type="object">VuefrontBlogUiDataProviderPostFormModifierPool</argument>
+        </arguments>
+    </type>
 </config>

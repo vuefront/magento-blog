@@ -63,15 +63,6 @@ class DataProvider extends AbstractDataProvider
      */
     public function getData()
     {
-//        if (isset($this->_loadedData)) {
-//            return $this->_loadedData;
-//        }
-//        $items = $this->getCollection()->getItems();
-//        foreach ($items as $employee) {
-//            $this->_loadedData[$employee->getId()] = $employee->getData();
-//        }
-//
-//        return $this->_loadedData;
         /**
          * @var ModifierInterface $modifier
          */

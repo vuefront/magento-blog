@@ -17,6 +17,10 @@ use Magento\Framework\Registry;
 class Category extends \Magento\Framework\Model\AbstractModel implements CategoryInterface
 {
 
+    const BASE_TMP_PATH='vuefront_blog/tmp/category/image';
+
+    const BASE_PATH='vuefront_blog/category/image';
+
     /**
      * @var UploaderPool
      */
@@ -139,7 +143,7 @@ class Category extends \Magento\Framework\Model\AbstractModel implements Categor
         $image = $this->getImage();
         if ($image) {
             if (is_string($image)) {
-                $uploader = $this->uploaderPool->getUploader('image');
+                $uploader = $this->uploaderPool->getUploader('image-category');
                 $url = $uploader->getBaseUrl().$uploader->getBasePath().$image;
             } else {
                 throw new LocalizedException(

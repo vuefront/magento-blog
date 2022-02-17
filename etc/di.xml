@@ -33,10 +33,22 @@
             </argument>
         </arguments>
     </type>
-    <virtualType name="VuefrontBlogImageUploader" type="Vuefront\Blog\Model\Uploader">
+    <virtualType name="VuefrontBlogCategoryImageUploader" type="Vuefront\Blog\Model\Uploader">
         <arguments>
-            <argument name="baseTmpPath" xsi:type="const">Vuefront\Blog\Model\Uploader::IMAGE_TMP_PATH</argument>
-            <argument name="basePath" xsi:type="const">Vuefront\Blog\Model\Uploader::IMAGE_PATH</argument>
+            <argument name="baseTmpPath" xsi:type="const">Vuefront\Blog\Model\Category::BASE_TMP_PATH</argument>
+            <argument name="basePath" xsi:type="const">Vuefront\Blog\Model\Category::BASE_PATH</argument>
+            <argument name="allowedExtensions" xsi:type="array">
+                <item name="jpg" xsi:type="string">jpg</item>
+                <item name="jpeg" xsi:type="string">jpeg</item>
+                <item name="gif" xsi:type="string">gif</item>
+                <item name="png" xsi:type="string">png</item>
+            </argument>
+        </arguments>
+    </virtualType>
+        <virtualType name="VuefrontBlogPostImageUploader" type="Vuefront\Blog\Model\Uploader">
+        <arguments>
+            <argument name="baseTmpPath" xsi:type="const">Vuefront\Blog\Model\Post::BASE_TMP_PATH</argument>
+            <argument name="basePath" xsi:type="const">Vuefront\Blog\Model\Post::BASE_PATH</argument>
             <argument name="allowedExtensions" xsi:type="array">
                 <item name="jpg" xsi:type="string">jpg</item>
                 <item name="jpeg" xsi:type="string">jpeg</item>
@@ -47,18 +59,28 @@
     </virtualType>
     <type name="Vuefront\Blog\Controller\Adminhtml\Category\Image\Upload">
         <arguments>
-            <argument name="uploader" xsi:type="object">VuefrontBlogImageUploader</argument>
+            <argument name="uploader" xsi:type="object">VuefrontBlogCategoryImageUploader</argument>
+        </arguments>
+    </type>
+    <type name="Vuefront\Blog\Controller\Adminhtml\Post\Image\Upload">
+        <arguments>
+            <argument name="uploader" xsi:type="object">VuefrontBlogPostImageUploader</argument>
         </arguments>
     </type>
     <type name="Vuefront\Blog\Model\UploaderPool">
         <arguments>
             <argument name="uploaders" xsi:type="array">
-                <item name="image" xsi:type="string">VuefrontBlogImageUploader</item>
-<!--                <item name="file" xsi:type="string">Mage360BrandsFileUploader</item>-->
+                <item name="image-category" xsi:type="string">VuefrontBlogCategoryImageUploader</item>
+                <item name="image-post" xsi:type="string">VuefrontBlogPostImageUploader</item>
             </argument>
         </arguments>
     </type>
     <type name="Vuefront\Blog\Model\Category">
+        <arguments>
+            <argument name="uploaderPool" xsi:type="object">Vuefront\Blog\Model\UploaderPool</argument>
+        </arguments>
+    </type>
+    <type name="Vuefront\Blog\Model\Post">
         <arguments>
             <argument name="uploaderPool" xsi:type="object">Vuefront\Blog\Model\UploaderPool</argument>
         </arguments>

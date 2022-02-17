@@ -5,7 +5,6 @@ use Magento\Backend\App\Action;
 use Magento\Backend\App\Action\Context;
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Exception\NoSuchEntityException;
-use Mage360\Brands\Controller\Adminhtml\Brands;
 use Vuefront\Blog\Api\CategoryRepositoryInterface;
 use Vuefront\Blog\Api\Data\CategoryInterfaceFactory;
 
@@ -25,8 +24,7 @@ class Delete extends Action
         CategoryRepositoryInterface $categoryRepository,
         CategoryInterfaceFactory $categoryFactory,
         Context $context
-    )
-    {
+    ) {
         $this->categoryFactory = $categoryFactory;
         $this->categoryRepository = $categoryRepository;
         parent::__construct($context);
@@ -37,7 +35,7 @@ class Delete extends Action
     public function execute()
     {
         $resultRedirect = $this->resultRedirectFactory->create();
-        $id = $this->getRequest()->getParam('brand_id');
+        $id = $this->getRequest()->getParam('category_id');
         if ($id) {
             try {
                 $this->categoryRepository->deleteById($id);
@@ -55,8 +53,8 @@ class Delete extends Action
                 return $resultRedirect->setPath('vuefront_blog/category/edit', ['category_id' => $id]);
             }
         }
-        $this->messageManager->addErrorMessage(__('We can\'t find a Brand to delete.'));
-        $resultRedirect->setPath('brands/*/');
+        $this->messageManager->addErrorMessage(__('We can\'t find a Category to delete.'));
+        $resultRedirect->setPath('vuefront_blog/*/');
         return $resultRedirect;
     }
 }

@@ -9,18 +9,18 @@ interface CategoryInterface
     /**
      * Constants for keys of data array. Identical to the name of the getter in snake case
      */
-    const CATEGORY_ID               = 'category_id';
-    const TITLE                = 'title';
-    const DESCRIPTION         = 'description';
-    const IMAGE = 'image';
-    const PARENT_ID = 'parent_id';
-    const KEYWORD = 'keyword';
-    const META_TITLE = 'meta_title';
-    const META_KEYWORDS = 'meta_keywords';
+    const CATEGORY_ID      = 'category_id';
+    const TITLE            = 'title';
+    const DESCRIPTION      = 'description';
+    const IMAGE            = 'image';
+    const PARENT_ID        = 'parent_id';
+    const KEYWORD          = 'keyword';
+    const META_TITLE       = 'meta_title';
+    const META_KEYWORDS    = 'meta_keywords';
     const META_DESCRIPTION = 'meta_description';
-    const SORT_ORDER = 'sort_order';
-    const DATE_ADDED = 'date_added';
-    const DATE_MODIFIED = 'date_modified';
+    const SORT_ORDER       = 'sort_order';
+    const DATE_ADDED       = 'date_added';
+    const DATE_MODIFIED    = 'date_modified';
     /**
      * Get ID
      *

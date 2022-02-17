@@ -38,6 +38,11 @@ class CategoryRepository implements CategoryRepositoryInterface
      */
     public $categoryCollectionFactory;
     /**
+    * @var StoreManagerInterface
+    */
+    public $storeManager;
+
+    /**
      * @var CategorySearchResultsInterfaceFactory
      */
     public $searchResultsFactory;
@@ -49,11 +54,6 @@ class CategoryRepository implements CategoryRepositoryInterface
      * @var DataObjectHelper
      */
     public $dataObjectHelper;
-
-    /**
-     * @var StoreManagerInterface
-     */
-    public $storeManager;
 
     /**
      * @var HydratorInterface
@@ -75,7 +75,7 @@ class CategoryRepository implements CategoryRepositoryInterface
         $this->searchResultsFactory      = $categorySearchResultsInterfaceFactory;
         $this->categoryInterfaceFactory  = $categoryInterfaceFactory;
         $this->dataObjectHelper          = $dataObjectHelper;
-        $this->hydrator = $hydrator ?: ObjectManager::getInstance()
+        $this->hydrator                  = $hydrator ?: ObjectManager::getInstance()
             ->get(HydratorInterface::class);
     }
     /**

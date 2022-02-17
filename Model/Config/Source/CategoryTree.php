@@ -56,8 +56,8 @@ class CategoryTree implements \Magento\Framework\Data\OptionSourceInterface
         if (isset($childs[$itemId])) {
             foreach ($childs[$itemId] as $item) {
                 $data = [
-                    'label' => $item->getTitle() .
-                        ($item->getIsActive() ? '' : ' ('.__('Disabled').')'),
+                    'label' => $item->getTitle()/* .
+                        ($item->getIsActive() ? '' : ' ('.__('Disabled').')')*/,
                     'value' => $item->getId(),
                 ];
                 if (isset($childs[$item->getId()])) {
