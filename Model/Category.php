@@ -4,15 +4,16 @@ namespace Vuefront\Blog\Model;
 
 use Vuefront\Blog\Api\Data\CategoryInterface;
 use Magento\Framework\Data\Collection\AbstractDb;
-use Magento\Framework\Data\Collection\Db;
 use Magento\Framework\Exception\LocalizedException;
-use Magento\Framework\Filter\FilterManager;
-use Magento\Framework\Model\AbstractModel;
 use Magento\Framework\Model\Context;
 use Magento\Framework\Model\ResourceModel\AbstractResource;
 use Magento\Framework\Registry;
-use Magento\Store\Model\StoreManagerInterface;
 
+/**
+ * @api
+ * @method Category setStoreId(int $storeId)
+ * @method int getStoreId()
+ */
 class Category extends \Magento\Framework\Model\AbstractModel implements CategoryInterface
 {
 
@@ -78,6 +79,23 @@ class Category extends \Magento\Framework\Model\AbstractModel implements Categor
     public function getKeyword()
     {
         return $this->getData(CategoryInterface::KEYWORD);
+    }
+
+    /**
+     * Get Url
+     *
+     * @return string
+     */
+    public function getUrl()
+    {
+        $url_key = $this->getKeyword();
+
+        return self::URL_PREFIX.'/'.$url_key.self::URL_EXT;
+    }
+
+    public function getStores()
+    {
+        return $this->hasData('stores') ? $this->getData('stores') : (array)$this->getData('store_id');
     }
 
     public function getMetaTitle()

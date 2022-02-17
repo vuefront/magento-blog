@@ -5,14 +5,16 @@ use Magento\Framework\Api\DataObjectHelper;
 use Magento\Framework\Api\SearchCriteriaInterface;
 use Magento\Framework\Api\Search\FilterGroup;
 use Magento\Framework\Api\SortOrder;
+use Magento\Framework\App\ObjectManager;
+use Magento\Framework\EntityManager\HydratorInterface;
 use Magento\Framework\Exception\CouldNotSaveException;
 use Magento\Framework\Exception\StateException;
 use Magento\Framework\Exception\ValidatorException;
 use Magento\Framework\Exception\NoSuchEntityException;
 
+use Magento\Store\Model\StoreManagerInterface;
 use Vuefront\Blog\Api\CategoryRepositoryInterface;
 
-use Vuefront\Blog\Api\Data;
 use Vuefront\Blog\Api\Data\CategoryInterface;
 use Vuefront\Blog\Api\Data\CategoryInterfaceFactory;
 use Vuefront\Blog\Api\Data\CategorySearchResultsInterface;
@@ -48,18 +50,33 @@ class CategoryRepository implements CategoryRepositoryInterface
      */
     public $dataObjectHelper;
 
+    /**
+     * @var StoreManagerInterface
+     */
+    public $storeManager;
+
+    /**
+     * @var HydratorInterface
+     */
+    private $hydrator;
+
     public function __construct(
         ResourceCategory $resource,
         CategoryCollectionFactory $categoryCollectionFactory,
         CategorySearchResultsInterfaceFactory $categorySearchResultsInterfaceFactory,
         CategoryInterfaceFactory $categoryInterfaceFactory,
-        DataObjectHelper $dataObjectHelper
+        DataObjectHelper $dataObjectHelper,
+        StoreManagerInterface $storeManager,
+        ?HydratorInterface $hydrator = null
     ) {
+        $this->storeManager              = $storeManager;
         $this->resource                  = $resource;
         $this->categoryCollectionFactory = $categoryCollectionFactory;
         $this->searchResultsFactory      = $categorySearchResultsInterfaceFactory;
         $this->categoryInterfaceFactory  = $categoryInterfaceFactory;
         $this->dataObjectHelper          = $dataObjectHelper;
+        $this->hydrator = $hydrator ?: ObjectManager::getInstance()
+            ->get(HydratorInterface::class);
     }
     /**
      * Save category.
@@ -74,6 +91,16 @@ class CategoryRepository implements CategoryRepositoryInterface
          * @var CategoryInterface|\Magento\Framework\Model\AbstractModel $category
          */
         try {
+            $categoryId = $category->getId();
+            if ($categoryId && !($category instanceof Category && $category->getOrigData())) {
+                $category = $this->hydrator->hydrate($this->getById($categoryId), $this->hydrator->extract($category));
+            }
+
+            if ($category->getStoreId() === null) {
+                $storeId = $this->storeManager->getStore()->getId();
+                $category->setStoreId($storeId);
+            }
+
             $this->resource->save($category);
         } catch (\Exception $exception) {
             throw new CouldNotSaveException(
@@ -188,7 +215,6 @@ class CategoryRepository implements CategoryRepositoryInterface
      */
     public function delete(CategoryInterface $category)
     {
-
         $id = $category->getId();
         try {
             unset($this->instances[$id]);

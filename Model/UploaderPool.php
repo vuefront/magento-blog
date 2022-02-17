@@ -2,7 +2,6 @@
 namespace Vuefront\Blog\Model;
 
 use Magento\Framework\ObjectManagerInterface;
-use Magento\Framework\Exception\LocalizedException;
 
 class UploaderPool
 {

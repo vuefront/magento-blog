@@ -3,7 +3,6 @@
 
 namespace vuefront\blog\Controller\Adminhtml\Post;
 
-
 use Magento\Backend\App\Action;
 use Magento\Backend\App\Action\Context;
 use Vuefront\Blog\Api\Data\PostInterface;
@@ -11,7 +10,6 @@ use Vuefront\Blog\Api\Data\PostInterfaceFactory;
 use Vuefront\Blog\Api\PostRepositoryInterface;
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Reflection\DataObjectProcessor;
-
 
 class Save extends Action
 {
@@ -34,8 +32,7 @@ class Save extends Action
         PostRepositoryInterface $postRepository,
         PostInterfaceFactory $postFactory,
         Context $context
-    )
-    {
+    ) {
         $this->postFactory = $postFactory;
         $this->postRepository = $postRepository;
         $this->dataObjectProcessor = $dataObjectProcessor;

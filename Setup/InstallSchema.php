@@ -5,7 +5,6 @@ namespace Vuefront\Blog\Setup;
 use Magento\Framework\Setup\InstallSchemaInterface;
 use Magento\Framework\Setup\ModuleContextInterface;
 use Magento\Framework\Setup\SchemaSetupInterface;
-use Magento\Framework\DB\Adapter\AdapterInterface;
 
 class InstallSchema implements InstallSchemaInterface
 {
@@ -82,6 +81,37 @@ class InstallSchema implements InstallSchemaInterface
             'Date Modified'
         );
         $installer->getConnection()->createTable($table);
+
+        $table = $installer->getConnection()->newTable(
+            $installer->getTable('vuefront_blog_category_store')
+        )->addColumn(
+            'category_id',
+            \Magento\Framework\DB\Ddl\Table::TYPE_INTEGER,
+            null,
+            ['nullable' => false, 'primary' => true],
+        )->addColumn(
+            'store_id',
+            \Magento\Framework\DB\Ddl\Table::TYPE_SMALLINT,
+            null,
+            ['unsigned' => true, 'nullable' => false, 'primary' => true],
+        )->addIndex(
+            $installer->getIdxName('vuefront_blog_category_store', ['store_id']),
+            ['store_id']
+        )->addForeignKey(
+            $installer->getFkName('vuefront_blog_category_store', 'category_id', 'vuefront_blog_category', 'category_id'),
+            'category_id',
+            $installer->getTable('vuefront_blog_category'),
+            'category_id',
+            \Magento\Framework\DB\Ddl\Table::ACTION_CASCADE
+        )->addForeignKey(
+            $installer->getFkName('vuefront_blog_category_store', 'store_id', 'store', 'store_id'),
+            'store_id',
+            $installer->getTable('store'),
+            'store_id',
+            \Magento\Framework\DB\Ddl\Table::ACTION_CASCADE
+        );
+        $installer->getConnection()->createTable($table);
+
         $table = $installer->getConnection()->newTable(
             $installer->getTable('vuefront_blog_post')
         )->addColumn(
@@ -122,7 +152,7 @@ class InstallSchema implements InstallSchemaInterface
             'Date Modified'
         );
 
-         $installer->getConnection()->createTable($table);
+        $installer->getConnection()->createTable($table);
 
         $installer->endSetup();
     }

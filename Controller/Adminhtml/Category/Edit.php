@@ -2,7 +2,6 @@
 
 namespace Vuefront\Blog\Controller\Adminhtml\Category;
 
-use Magento\Framework\Controller\ResultFactory;
 use Vuefront\Blog\Api\CategoryRepositoryInterface;
 use Vuefront\Blog\Controller\RegistryConstants;
 

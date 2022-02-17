@@ -82,22 +82,10 @@
                     <item name="config" xsi:type="array">
                         <item name="type" xsi:type="string">delete</item>
                         <item name="label" xsi:type="string" translate="true">Delete</item>
-                        <item name="url" xsi:type="url" path="vuefront_blog/index/massDelete"/>
+                        <item name="url" xsi:type="url" path="vuefront_blog/category/massDelete"/>
                         <item name="confirm" xsi:type="array">
                             <item name="title" xsi:type="string" translate="true">Delete items</item>
                             <item name="message" xsi:type="string" translate="true">Are you sure you want to delete selected items?</item>
-                        </item>
-                    </item>
-                </argument>
-            </action>
-            <action name="edit">
-                <argument name="data" xsi:type="array">
-                    <item name="config" xsi:type="array">
-                        <item name="type" xsi:type="string">edit</item>
-                        <item name="label" xsi:type="string" translate="true">Edit</item>
-                        <item name="callback" xsi:type="array">
-                            <item name="provider" xsi:type="string">vuefront_blog_category_listing.vuefront_blog_category_listing.vuefront_blog_category_listing_columns_editor</item>
-                            <item name="target" xsi:type="string">editSelected</item>
                         </item>
                     </item>
                 </argument>
@@ -128,6 +116,13 @@
                     <item name="label" xsi:type="string" translate="true">Title</item>
                 </item>
             </argument>
+        </column>
+        <column name="store_id" class="Magento\Store\Ui\Component\Listing\Column\Store" sortOrder="25">
+            <settings>
+                <bodyTmpl>ui/grid/cells/html</bodyTmpl>
+                <label translate="true">Store View</label>
+                <sortable>false</sortable>
+            </settings>
         </column>
         <column name="date_added" sortOrder="30">
             <argument name="data" xsi:type="array">

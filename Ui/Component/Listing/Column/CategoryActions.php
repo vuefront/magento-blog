@@ -70,10 +70,10 @@ class CategoryActions extends Column
                         'href' => $this->urlBuilder->getUrl($this->editUrl, ['category_id' => $item['category_id']]),
                         'label' => __('Edit'),
                     ];
-                    $item[$name]['delete'] = [
-                        'href' => $this->urlBuilder->getUrl($this->deleteUrl, ['category_id' => $item['category_id']]),
-                        'label' => __('Delete'),
-                    ];
+//                    $item[$name]['delete'] = [
+//                        'href' => $this->urlBuilder->getUrl($this->deleteUrl, ['category_id' => $item['category_id']]),
+//                        'label' => __('Delete'),
+//                    ];
                 }
             }
         }

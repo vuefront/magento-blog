@@ -131,8 +131,8 @@
                     <item name="source" xsi:type="string">category</item>
                     <item name="label" xsi:type="string" translate="true">Image</item>
                     <item name="visible" xsi:type="boolean">true</item>
-                    <item name="formElement" xsi:type="string">fileUploader</item>
-                    <item name="elementTmpl" xsi:type="string">ui/form/element/uploader/uploader</item>
+                    <item name="formElement" xsi:type="string">imageUploader</item>
+                    <item name="elementTmpl" xsi:type="string">ui/form/element/uploader/image</item>
                     <item name="previewTmpl" xsi:type="string">Vuefront_Blog/image-preview</item>
                     <item name="required" xsi:type="boolean">false</item>
                     <item name="uploaderConfig" xsi:type="array">
@@ -175,14 +175,14 @@
                 <item name="sortOrder" xsi:type="number">30</item>
             </item>
         </argument>
-        <field name="identifier">
+        <field name="keyword">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="dataType" xsi:type="string">text</item>
                     <item name="label" xsi:type="string" translate="true">URL Key</item>
                     <item name="formElement" xsi:type="string">input</item>
                     <item name="source" xsi:type="string">category</item>
-                    <item name="dataScope" xsi:type="string">identifier</item>
+                    <item name="dataScope" xsi:type="string">keyword</item>
                     <item name="validation" xsi:type="array">
                         <item name="required-entry" xsi:type="boolean">true</item>
                     </item>
@@ -242,7 +242,7 @@
                     <item name="label" xsi:type="string" translate="true">Store View</item>
                     <item name="formElement" xsi:type="string">multiselect</item>
                     <item name="source" xsi:type="string">category</item>
-                    <item name="dataScope" xsi:type="string">store_ids</item>
+                    <item name="dataScope" xsi:type="string">store_id</item>
                     <item name="default" xsi:type="string">0</item>
                     <item name="validation" xsi:type="array">
                         <item name="required-entry" xsi:type="boolean">true</item>
