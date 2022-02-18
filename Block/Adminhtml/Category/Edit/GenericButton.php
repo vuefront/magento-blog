@@ -2,7 +2,6 @@
 
 namespace Vuefront\Blog\Block\Adminhtml\Category\Edit;
 
-
 use Magento\Backend\Block\Widget\Context;
 
 class GenericButton

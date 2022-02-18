@@ -11,8 +11,8 @@
              action="vuefront_blog/category"
              parent="Vuefront_Blog::blog"
              resource="Vuefront_Blog::blog"/>
-        <add id="Vuefront_Blog::reviews" title="Reviews" module="Vuefront_Blog" sortOrder="3"
-             action="vuefront_blog/reviews"
+        <add id="Vuefront_Blog::comment" title="Reviews" module="Vuefront_Blog" sortOrder="3"
+             action="vuefront_blog/comment"
              parent="Vuefront_Blog::blog"
              resource="Vuefront_Blog::blog"/>
         <add id="Vuefront_Blog::settings" title="Settings" module="Vuefront_Blog" sortOrder="4"

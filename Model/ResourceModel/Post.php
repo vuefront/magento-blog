@@ -18,6 +18,8 @@ class Post extends \Magento\Framework\Model\ResourceModel\Db\AbstractDb
             $object->setData('store_id', $stores);
             $categories = $this->lookupCategoryIds((int)$object->getId());
             $object->setData('category_id', $categories);
+            $comments = $this->lookupCommentIds((int)$object->getId());
+            $object->setData('comment_id', $comments);
         }
         return parent::_afterLoad($object);
     }
@@ -86,6 +88,27 @@ class Post extends \Magento\Framework\Model\ResourceModel\Db\AbstractDb
         }
 
         return parent::_afterSave($object);
+    }
+
+    /**
+     * Get comment ids to which specified item is assigned
+     *
+     * @param int $postId
+     * @return array
+     */
+    public function lookupCommentIds($postId)
+    {
+        $adapter = $this->getConnection();
+
+        $select = $adapter->select()->from(
+            $this->getTable('vuefront_blog_comment'),
+            'comment_id'
+        )->where(
+            'post_id = ?',
+            (int)$postId
+        );
+
+        return $adapter->fetchCol($select);
     }
 
     /**

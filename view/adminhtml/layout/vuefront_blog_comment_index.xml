@@ -2,12 +2,12 @@
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <referenceBlock name="page.title">
         <action method="setPageTitle">
-            <argument name="title" xsi:type="string">Review List</argument>
+            <argument name="title" xsi:type="string">Reviews List</argument>
         </action>
     </referenceBlock>
     <body>
         <referenceContainer name="content">
-            <block class="Magento\Backend\Block\Template" template="Vuefront_Blog::reviews.phtml"/>
+            <uiComponent name="vuefront_blog_comment_listing"/>
         </referenceContainer>
     </body>
 </page>

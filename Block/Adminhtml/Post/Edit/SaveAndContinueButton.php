@@ -6,6 +6,9 @@ use Magento\Framework\View\Element\UiComponent\Control\ButtonProviderInterface;
 
 class SaveAndContinueButton extends GenericButton implements ButtonProviderInterface
 {
+    /**
+     * Get Button Data
+     */
     public function getButtonData()
     {
         $postId = $this->getPostId();

@@ -3,9 +3,20 @@
         xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
 
     <preference for="Vuefront\Blog\Api\PostRepositoryInterface" type="Vuefront\Blog\Model\PostRepository" />
+    <preference for="Vuefront\Blog\Api\CommentRepositoryInterface" type="Vuefront\Blog\Model\CommentRepository" />
     <preference for="Vuefront\Blog\Api\CategoryRepositoryInterface" type="Vuefront\Blog\Model\CategoryRepository" />
     <preference for="Vuefront\Blog\Api\Data\PostInterface" type="Vuefront\Blog\Model\Post" />
+    <preference for="Vuefront\Blog\Api\Data\CommentInterface" type="Vuefront\Blog\Model\Comment" />
     <preference for="Vuefront\Blog\Api\Data\CategoryInterface" type="Vuefront\Blog\Model\Category" />
+
+    <type name="Vuefront\Blog\Model\ResourceModel\Comment\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">vuefront_blog_comment</argument>
+            <argument name="eventPrefix" xsi:type="string">vuefront_blog_comment_grid_collection</argument>
+            <argument name="eventObject" xsi:type="string">comment_grid_collection</argument>
+            <argument name="resourceModel" xsi:type="string">Vuefront\Blog\Model\ResourceModel\Comment</argument>
+        </arguments>
+    </type>
 
     <type name="Vuefront\Blog\Model\ResourceModel\Post\Grid\Collection">
         <arguments>
@@ -30,6 +41,7 @@
             <argument name="collections" xsi:type="array">
                 <item name="post_listing_data_source" xsi:type="string">Vuefront\Blog\Model\ResourceModel\Post\Grid\Collection</item>
                 <item name="category_listing_data_source" xsi:type="string">Vuefront\Blog\Model\ResourceModel\Category\Grid\Collection</item>
+                <item name="comment_listing_data_source" xsi:type="string">Vuefront\Blog\Model\ResourceModel\Comment\Grid\Collection</item>
             </argument>
         </arguments>
     </type>

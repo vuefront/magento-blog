@@ -5,7 +5,6 @@ use Magento\Backend\App\Action;
 use Magento\Backend\App\Action\Context;
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Exception\NoSuchEntityException;
-use Mage360\Brands\Controller\Adminhtml\Brands;
 use Vuefront\Blog\Api\CategoryRepositoryInterface;
 use Vuefront\Blog\Api\Data\CategoryInterfaceFactory;
 

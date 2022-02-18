@@ -3,6 +3,7 @@
 namespace Vuefront\Blog\Model\ResourceModel\Post;
 
 use Magento\Store\Model\StoreManagerInterface;
+use \Vuefront\Blog\Api\CategoryRepositoryInterface;
 
 class Collection extends \Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection
 {
@@ -22,10 +23,30 @@ class Collection extends \Magento\Framework\Model\ResourceModel\Db\Collection\Ab
      */
     protected $_categoryId;
 
-    public function __construct(StoreManagerInterface $storeManager, \Magento\Framework\Data\Collection\EntityFactoryInterface $entityFactory, \Psr\Log\LoggerInterface $logger, \Magento\Framework\Data\Collection\Db\FetchStrategyInterface $fetchStrategy, \Magento\Framework\Event\ManagerInterface $eventManager, \Magento\Framework\DB\Adapter\AdapterInterface $connection = null, \Magento\Framework\Model\ResourceModel\Db\AbstractDb $resource = null)
+    /**
+     * @var \Vuefront\Blog\Model\Category
+     */
+    protected $category;
+
+    /**
+     * @var CategoryRepositoryInterface|null
+     */
+    protected $categoryRepository;
+
+    public function __construct(
+        CategoryRepositoryInterface $categoryRepository,
+        StoreManagerInterface $storeManager,
+        \Magento\Framework\Data\Collection\EntityFactoryInterface $entityFactory,
+        \Psr\Log\LoggerInterface $logger,
+        \Magento\Framework\Data\Collection\Db\FetchStrategyInterface $fetchStrategy,
+        \Magento\Framework\Event\ManagerInterface $eventManager,
+        \Magento\Framework\DB\Adapter\AdapterInterface $connection = null,
+        \Magento\Framework\Model\ResourceModel\Db\AbstractDb $resource = null
+    )
     {
         parent::__construct($entityFactory, $logger, $fetchStrategy, $eventManager, $connection, $resource);
         $this->storeManager = $storeManager;
+        $this->categoryRepository = $categoryRepository;
     }
 
     protected function _construct()
@@ -39,7 +60,6 @@ class Collection extends \Magento\Framework\Model\ResourceModel\Db\Collection\Ab
         $this->_map['fields']['store'] = 'store_table.store_id';
         $this->_map['fields']['category'] = 'category_table.category_id';
     }
-
 
     /**
      * Add field filter to collection
@@ -78,25 +98,93 @@ class Collection extends \Magento\Framework\Model\ResourceModel\Db\Collection\Ab
      */
     public function addCategoryFilter($category, $withAdmin = true)
     {
-        if ($category === null) {
-            return $this;
-        }
-
         if (!$this->getFlag('category_filter_added')) {
             if ($category instanceof \Vuefront\Blog\Model\Category) {
-                $this->_categoryId = $category->getId();
-                $category = [$category->getId()];
+                $this->category = $category;
+                $categories = [];
+                $categories[] = $category->getId();
+            } else {
+                $categories = $category;
+                if (!is_array($categories)) {
+                    $categories = [$categories];
+                }
+            }
+            $connection = $this->getConnection();
+            $tableName = $this->getTable('vuefront_blog_category');
+            if (is_numeric(key($categories))) {
+                foreach ($categories as $k => $id) {
+                    if (!is_numeric($id)) {
+                        $select = $connection->select()
+                            ->from(['t' => $tableName], 'category_id')
+                            ->where('t.category_id = ?', $id);
+
+                        $id = $connection->fetchOne($select);
+                        if (!$id) {
+                            $id = 0;
+                        }
+
+                        $categories[$k] = $id;
+                    }
+                }
+            } else {
+                $select = $connection->select()
+                    ->from(['t' => $tableName], 'category_id')
+                    ->where(
+                        $connection->prepareSqlCondition('t.identifier', $categories)
+                        . ' OR ' .
+                        $connection->prepareSqlCondition('t.category_id', $categories)
+                    );
+
+                $categories = [];
+                foreach ($connection->fetchAll($select) as $item) {
+                    $categories[] = $item['category_id'];
+                }
+
+                if (1 === count($categories)) {
+                    /* Fix for graphQL to get posts from child categories when filtering by category */
+                    try {
+                        $category = $this->categoryRepository->getById($categories[0]);
+                        if ($category->getId()) {
+                            return $this->addCategoryFilter($category);
+                        }
+                    } catch (\NoSuchEntityException $e) {
+                    }
+                }
             }
 
-            if (!is_array($category)) {
-                $this->_categoryId = $category;
-                $category = [$category];
-            }
-
-            $this->addFilter('category', ['in' => $category], 'public');
+            $this->addFilter('category', ['in' => $categories], 'public');
             $this->setFlag('category_filter_added', 1);
         }
+
         return $this;
+    }
+
+    /**
+     * Join store relation table if there is category filter
+     *
+     * @return void
+     */
+    protected function _renderFiltersBefore()
+    {
+        if ($this->getFilter('category')) {
+            $this->getSelect()->join(
+                ['category_table' => $this->getTable('vuefront_blog_post_category')],
+                'main_table.post_id = category_table.post_id',
+                []
+            )->group(
+                'main_table.post_id'
+            );
+        }
+        if ($this->getFilter('store')) {
+            $this->getSelect()->join(
+                ['store_table' => $this->getTable('vuefront_blog_post_store')],
+                'main_table.post_id = store_table.post_id',
+                []
+            )->group(
+                'main_table.post_id'
+            );
+        }
+        parent::_renderFiltersBefore();
     }
     /**
      * Add store filter to collection

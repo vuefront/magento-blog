@@ -245,6 +245,52 @@ class InstallSchema implements InstallSchemaInterface
         );
         $installer->getConnection()->createTable($table);
 
+        $table = $installer->getConnection()->newTable(
+            $installer->getTable('vuefront_blog_comment')
+        )->addColumn(
+            'comment_id',
+            \Magento\Framework\DB\Ddl\Table::TYPE_INTEGER,
+            null,
+            ['identity' => true, 'nullable' => false, 'primary' => true],
+            'Comment ID'
+        )->addColumn(
+            'post_id',
+            \Magento\Framework\DB\Ddl\Table::TYPE_INTEGER,
+            null,
+            ['nullable' => true],
+            'Post ID'
+        )->addColumn(
+            'author',
+            \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
+            255,
+            ['nullable' => true],
+            'Author'
+        )->addColumn(
+            'description',
+            \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
+            null,
+            ['nullable' => true],
+            'Description'
+        )->addColumn(
+            'rating',
+            \Magento\Framework\DB\Ddl\Table::TYPE_INTEGER,
+            null,
+            ['nullable' => true]
+        )->addColumn(
+            'status',
+            \Magento\Framework\DB\Ddl\Table::TYPE_INTEGER,
+            0,
+            ['nullable' => true]
+        )->addColumn(
+            'date_added',
+            \Magento\Framework\DB\Ddl\Table::TYPE_TIMESTAMP,
+            null,
+            ['nullable' => false, 'default' => \Magento\Framework\DB\Ddl\Table::TIMESTAMP_INIT_UPDATE],
+            'Date Added'
+        );
+
+        $installer->getConnection()->createTable($table);
+
         $installer->endSetup();
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace Vuefront\Blog\Block\Adminhtml\Post\Edit;
+namespace Vuefront\Blog\Block\Adminhtml\Comment\Edit;
 
 use Magento\Backend\Block\Widget\Context;
 
@@ -23,11 +23,11 @@ class GenericButton
     }
 
     /**
-     * Return the post Id.
+     * Return the category Id.
      *
      * @return int|null
      */
-    public function getPostId()
+    public function getCommentId()
     {
         return $this->context->getRequest()->getParam('id');
     }

@@ -7,6 +7,8 @@ use Magento\Framework\Data\Collection\AbstractDb;
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Model\Context;
 use Magento\Framework\Model\ResourceModel\AbstractResource;
+use Vuefront\Blog\Model\ResourceModel\Comment\CollectionFactory as CommentCollectionFactory;
+use Vuefront\Blog\Model\ResourceModel\Comment\Collection as CommentCollection;
 use Magento\Framework\Registry;
 
 /**
@@ -18,10 +20,14 @@ use Magento\Framework\Registry;
  */
 class Post extends \Magento\Framework\Model\AbstractModel implements PostInterface
 {
-
     const BASE_TMP_PATH = 'vuefront_blog/tmp/post/image';
 
     const BASE_PATH='vuefront_blog/post/image';
+
+    /**
+     * @var CommentCollectionFactory
+     */
+    protected $commentCollectionFactory;
 
     /**
      * @var UploaderPool
@@ -42,7 +48,13 @@ class Post extends \Magento\Framework\Model\AbstractModel implements PostInterfa
      */
     const URL_EXT = '.html';
 
+    /**
+     * @var CommentCollection
+     */
+    protected $comments = null;
+
     public function __construct(
+        CommentCollectionFactory $commentCollectionFactory,
         UploaderPool $uploaderPool,
         Context $context,
         Registry $registry,
@@ -50,6 +62,7 @@ class Post extends \Magento\Framework\Model\AbstractModel implements PostInterfa
         AbstractResource $resource = null,
         AbstractDb $resourceCollection = null
     ) {
+        $this->commentCollectionFactory = $commentCollectionFactory;
         $this->uploaderPool = $uploaderPool;
         parent::__construct($context, $registry, $resource, $resourceCollection, $data);
     }
@@ -102,6 +115,17 @@ class Post extends \Magento\Framework\Model\AbstractModel implements PostInterfa
     public function getCategories()
     {
         return $this->hasData('categories') ? $this->getData('categories') : (array)$this->getData('category_id');
+    }
+
+    public function getComments($enabled = true)
+    {
+        if ($this->comments === null) {
+            $this->comments = $this->commentCollectionFactory->create()->addFieldToFilter('post_id', $this->getId());
+            if ($enabled) {
+                $this->comments = $this->comments->addFieldToFilter('status', 1);
+            }
+        }
+        return $this->comments;
     }
 
 

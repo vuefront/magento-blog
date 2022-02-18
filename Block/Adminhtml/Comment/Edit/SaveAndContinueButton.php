@@ -1,6 +1,6 @@
 <?php
 
-namespace Vuefront\Blog\Block\Adminhtml\Category\Edit;
+namespace Vuefront\Blog\Block\Adminhtml\Comment\Edit;
 
 use Magento\Framework\View\Element\UiComponent\Control\ButtonProviderInterface;
 
@@ -11,9 +11,9 @@ class SaveAndContinueButton extends GenericButton implements ButtonProviderInter
      */
     public function getButtonData()
     {
-        $postId = $this->getCategoryId();
+        $commentId = $this->getCommentId();
 
-        $canModify = !$postId;
+        $canModify = !$commentId;
         $data = [];
 
         if ($canModify) {
