@@ -6,11 +6,21 @@ use Magento\Framework\Model\AbstractModel;
 
 class Post extends \Magento\Framework\Model\ResourceModel\Db\AbstractDb
 {
+    /**
+     * Constructor
+     */
     protected function _construct()
     {
         $this->_init('vuefront_blog_post', 'post_id');
     }
 
+    /**
+     * After Load
+     *
+     * @param AbstractModel $object
+     *
+     * @return $this
+     */
     protected function _afterLoad(AbstractModel $object)
     {
         if ($object->getId()) {
@@ -24,7 +34,13 @@ class Post extends \Magento\Framework\Model\ResourceModel\Db\AbstractDb
         return parent::_afterLoad($object);
     }
 
-
+    /**
+     * After Save
+     *
+     * @param \Magento\Framework\Model\AbstractModel $object
+     *
+     * @return $this
+     */
     protected function _afterSave(\Magento\Framework\Model\AbstractModel $object)
     {
         $oldStores = $this->lookupStoreIds((int)$object->getId());

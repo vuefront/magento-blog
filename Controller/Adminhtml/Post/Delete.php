@@ -20,6 +20,12 @@ class Delete extends Action
      */
     public $postFactory;
 
+    /**
+     * Delete constructor.
+     * @param PostRepositoryInterface $postRepository
+     * @param PostInterfaceFactory $postFactory
+     * @param Context $context
+     */
     public function __construct(
         PostRepositoryInterface $postRepository,
         PostInterfaceFactory $postFactory,
@@ -30,6 +36,8 @@ class Delete extends Action
         parent::__construct($context);
     }
     /**
+     * Execute
+     *
      * @return \Magento\Framework\Controller\Result\Redirect
      */
     public function execute()

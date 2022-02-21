@@ -19,10 +19,8 @@ class PostTree implements \Magento\Framework\Data\OptionSourceInterface
     protected $_options;
 
     /**
-     * Initialize dependencies.
-     *
+     * PostTree constructor.
      * @param \Vuefront\Blog\Model\ResourceModel\Post\CollectionFactory $postCollectionFactory
-     * @param void
      */
     public function __construct(
         \Vuefront\Blog\Model\ResourceModel\Post\CollectionFactory $postCollectionFactory
@@ -46,7 +44,7 @@ class PostTree implements \Magento\Framework\Data\OptionSourceInterface
                 $newLine = $i != 0 ? '<br>' : '';
                 $this->options[] = [
                     "value" => $post->getId(),
-                    "label" =>  html_entity_decode($newLine.$post->getTitle())
+                    "label" =>  $newLine.$post->getTitle()
                 ];
                 $i++;
             }

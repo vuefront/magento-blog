@@ -59,6 +59,17 @@ class PostRepository implements PostRepositoryInterface
      * @var HydratorInterface
      */
     private $hydrator;
+
+    /**
+     * PostRepository constructor.
+     * @param ResourcePost $resource
+     * @param PostCollectionFactory $postCollectionFactory
+     * @param PostSearchResultsInterfaceFactory $postSearchResultsInterfaceFactory
+     * @param PostInterfaceFactory $postInterfaceFactory
+     * @param DataObjectHelper $dataObjectHelper
+     * @param StoreManagerInterface $storeManager
+     * @param HydratorInterface|null $hydrator
+     */
     public function __construct(
         ResourcePost $resource,
         PostCollectionFactory $postCollectionFactory,

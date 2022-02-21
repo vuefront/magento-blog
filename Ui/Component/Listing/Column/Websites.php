@@ -12,16 +12,14 @@ class Websites extends \Magento\Ui\Component\Listing\Columns\Column
     /**
      * Column name
      */
-    const NAME = 'websites';
+    public const NAME = 'websites';
 
     /**
-     * Data for concatenated website names value.
+     * @var string
      */
     private $websiteNames = 'website_names';
 
     /**
-     * Store manager
-     *
      * @var StoreManagerInterface
      */
     protected $storeManager;
@@ -32,12 +30,14 @@ class Websites extends \Magento\Ui\Component\Listing\Columns\Column
     private $resourceHelper;
 
     /**
+     * Websites constructor.
+     *
      * @param ContextInterface $context
      * @param UiComponentFactory $uiComponentFactory
      * @param StoreManagerInterface $storeManager
      * @param array $components
      * @param array $data
-     * @param Helper $resourceHelper
+     * @param Helper|null $resourceHelper
      */
     public function __construct(
         ContextInterface $context,
@@ -53,6 +53,12 @@ class Websites extends \Magento\Ui\Component\Listing\Columns\Column
         $this->resourceHelper = $resourceHelper ?: $objectManager->get(Helper::class);
     }
 
+    /**
+     * Prepare Data Source
+     *
+     * @param array $dataSource
+     * @return array
+     */
     public function prepareDataSource(array $dataSource)
     {
         $websiteNames = [];

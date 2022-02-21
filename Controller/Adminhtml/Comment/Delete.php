@@ -20,6 +20,12 @@ class Delete extends Action
      */
     public $commentFactory;
 
+    /**
+     * Delete constructor.
+     * @param CommentRepositoryInterface $commentRepository
+     * @param CommentInterfaceFactory $commentFactory
+     * @param Context $context
+     */
     public function __construct(
         CommentRepositoryInterface $commentRepository,
         CommentInterfaceFactory $commentFactory,
@@ -30,6 +36,8 @@ class Delete extends Action
         parent::__construct($context);
     }
     /**
+     * Execute
+     *
      * @return \Magento\Framework\Controller\Result\Redirect
      */
     public function execute()

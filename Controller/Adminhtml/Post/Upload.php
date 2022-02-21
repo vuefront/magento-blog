@@ -12,10 +12,8 @@ class Upload extends Action
     /**
      * @var string
      */
-    const ACTION_RESOURCE = 'Vuefront_Blog::post';
+    public const ACTION_RESOURCE = 'Vuefront_Blog::post';
     /**
-     * uploader
-     *
      * @var Uploader
      */
     private $uploader;
@@ -56,6 +54,8 @@ class Upload extends Action
     }
 
     /**
+     * Get File Name
+     *
      * @return string
      */
     private function getFieldName()

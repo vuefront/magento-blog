@@ -27,7 +27,9 @@ class UploaderPool
     }
 
     /**
-     * @param $type
+     * Get Uploader
+     *
+     * @param string $type
      * @return Uploader
      * @throws \Exception
      */

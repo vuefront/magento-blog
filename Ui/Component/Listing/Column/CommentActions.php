@@ -11,8 +11,8 @@ use Vuefront\Blog\Block\Adminhtml\Comment\Grid\Renderer\Action\UrlBuilder;
 class CommentActions extends Column
 {
     /** Url Path */
-    const BLOG_URL_PATH_EDIT = 'vuefront_blog/comment/edit';
-    const BLOG_URL_PATH_DELETE = 'vuefront_blog/comment/delete';
+    public const BLOG_URL_PATH_EDIT = 'vuefront_blog/comment/edit';
+    public const BLOG_URL_PATH_DELETE = 'vuefront_blog/comment/delete';
 
     /** @var UrlBuilder */
     protected $actionUrlBuilder;
@@ -30,15 +30,17 @@ class CommentActions extends Column
      */
     private $deleteUrl;
 
-     /**
-      * @param ContextInterface   $context
-      * @param UiComponentFactory $uiComponentFactory
-      * @param UrlBuilder         $actionUrlBuilder
-      * @param UrlInterface       $urlBuilder
-      * @param array              $components
-      * @param array              $data
-      * @param [type]             $editUrl
-      */
+    /**
+     * CommentActions constructor.
+     * @param ContextInterface $context
+     * @param UiComponentFactory $uiComponentFactory
+     * @param UrlBuilder $actionUrlBuilder
+     * @param UrlInterface $urlBuilder
+     * @param array $components
+     * @param array $data
+     * @param string $editUrl
+     * @param string $deleteUrl
+     */
     public function __construct(
         ContextInterface $context,
         UiComponentFactory $uiComponentFactory,
@@ -58,6 +60,7 @@ class CommentActions extends Column
     /**
      * Prepare Data Source.
      *
+     * @param array $dataSource
      * @return array
      */
     public function prepareDataSource(array $dataSource)
@@ -71,7 +74,10 @@ class CommentActions extends Column
                         'label' => __('Edit'),
                     ];
 //                    $item[$name]['delete'] = [
-//                        'href' => $this->urlBuilder->getUrl($this->deleteUrl, ['category_id' => $item['category_id']]),
+//                        'href' => $this->urlBuilder->getUrl(
+//                           $this->deleteUrl,
+//                           ['category_id' => $item['category_id']]
+//                         ),
 //                        'label' => __('Delete'),
 //                    ];
                 }

@@ -12,10 +12,8 @@ class Upload extends Action
     /**
      * @var string
      */
-    const ACTION_RESOURCE = 'Vuefront_Blog::category';
+    public const ACTION_RESOURCE = 'Vuefront_Blog::category';
     /**
-     * uploader
-     *
      * @var Uploader
      */
     private $uploader;
@@ -27,8 +25,7 @@ class Upload extends Action
     public function __construct(
         Context $context,
         Uploader $uploader
-    )
-    {
+    ) {
         parent::__construct($context);
         $this->uploader = $uploader;
     }
@@ -57,6 +54,8 @@ class Upload extends Action
     }
 
     /**
+     * Get Field Name
+     *
      * @return string
      */
     private function getFieldName()

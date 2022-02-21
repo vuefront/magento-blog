@@ -28,6 +28,14 @@ class Save extends Action
      */
     public $commentFactory;
 
+    /**
+     * Save constructor.
+     *
+     * @param DataObjectProcessor $dataObjectProcessor
+     * @param CommentRepositoryInterface $commentRepository
+     * @param CommentInterfaceFactory $commentFactory
+     * @param Context $context
+     */
     public function __construct(
         DataObjectProcessor $dataObjectProcessor,
         CommentRepositoryInterface $commentRepository,
@@ -41,6 +49,11 @@ class Save extends Action
         parent::__construct($context);
     }
 
+    /**
+     * Execute
+     *
+     * @return \Magento\Framework\App\ResponseInterface|\Magento\Framework\Controller\Result\Redirect|\Magento\Framework\Controller\ResultInterface
+     */
     public function execute()
     {
         $comment = null;
@@ -97,7 +110,9 @@ class Save extends Action
     }
 
     /**
-     * @param $commentData
+     * Store Comment Data to Session
+     *
+     * @param mixed $commentData
      */
     private function storeCommentDataToSession($commentData)
     {

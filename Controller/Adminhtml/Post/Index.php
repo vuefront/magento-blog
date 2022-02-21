@@ -1,8 +1,4 @@
 <?php
-/**
- * Copyright © Magento, Inc. All rights reserved.
- * See COPYING.txt for license details.
- */
 
 namespace Vuefront\Blog\Controller\Adminhtml\Post;
 
@@ -12,12 +8,9 @@ use Magento\Framework\App\Action\HttpGetActionInterface;
 use Magento\Framework\View\Result\Page;
 use Magento\Framework\View\Result\PageFactory;
 
-/**
- * Class Index.
- */
 class Index extends Action implements HttpGetActionInterface
 {
-    const MENU_ID = 'Vuefront_Blog::blog_posts';
+    public const MENU_ID = 'Vuefront_Blog::blog_posts';
 
     /**
      * @var PageFactory
@@ -26,6 +19,8 @@ class Index extends Action implements HttpGetActionInterface
 
     /**
      * Index constructor.
+     * @param Context $context
+     * @param PageFactory $resultPageFactory
      */
     public function __construct(
         Context $context,

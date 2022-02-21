@@ -24,10 +24,8 @@ class CategoryTree implements \Magento\Framework\Data\OptionSourceInterface
     protected $_childs;
 
     /**
-     * Initialize dependencies.
-     *
-     * @param \Vuefront\Blog\Model\ResourceModel\Category\CollectionFactory $authorCollectionFactory
-     * @param void
+     * CategoryTree constructor.
+     * @param \Vuefront\Blog\Model\ResourceModel\Category\CollectionFactory $categoryCollectionFactory
      */
     public function __construct(
         \Vuefront\Blog\Model\ResourceModel\Category\CollectionFactory $categoryCollectionFactory
@@ -48,6 +46,12 @@ class CategoryTree implements \Magento\Framework\Data\OptionSourceInterface
         return $this->_options;
     }
 
+    /**
+     * Get Options
+     *
+     * @param int $itemId
+     * @return array
+     */
     protected function _getOptions($itemId = 0)
     {
         $childs =  $this->_getChilds();
@@ -71,6 +75,11 @@ class CategoryTree implements \Magento\Framework\Data\OptionSourceInterface
         return $options;
     }
 
+    /**
+     * Get Childs
+     *
+     * @return array
+     */
     protected function _getChilds()
     {
         if ($this->_childs === null) {

@@ -11,8 +11,8 @@ use Vuefront\Blog\Block\Adminhtml\Post\Grid\Renderer\Action\UrlBuilder;
 class CategoryActions extends Column
 {
     /** Url Path */
-    const BLOG_URL_PATH_EDIT = 'vuefront_blog/category/edit';
-    const BLOG_URL_PATH_DELETE = 'vuefront_blog/category/delete';
+    public const BLOG_URL_PATH_EDIT = 'vuefront_blog/category/edit';
+    public const BLOG_URL_PATH_DELETE = 'vuefront_blog/category/delete';
 
     /** @var UrlBuilder */
     protected $actionUrlBuilder;
@@ -30,15 +30,17 @@ class CategoryActions extends Column
      */
     private $deleteUrl;
 
-     /**
-      * @param ContextInterface   $context
-      * @param UiComponentFactory $uiComponentFactory
-      * @param UrlBuilder         $actionUrlBuilder
-      * @param UrlInterface       $urlBuilder
-      * @param array              $components
-      * @param array              $data
-      * @param [type]             $editUrl
-      */
+    /**
+     * CategoryActions constructor.
+     * @param ContextInterface $context
+     * @param UiComponentFactory $uiComponentFactory
+     * @param UrlBuilder $actionUrlBuilder
+     * @param UrlInterface $urlBuilder
+     * @param array $components
+     * @param array $data
+     * @param string $editUrl
+     * @param string $deleteUrl
+     */
     public function __construct(
         ContextInterface $context,
         UiComponentFactory $uiComponentFactory,
@@ -56,8 +58,9 @@ class CategoryActions extends Column
     }
 
     /**
-     * Prepare Data Source.
+     * Prepare Data Source
      *
+     * @param array $dataSource
      * @return array
      */
     public function prepareDataSource(array $dataSource)
@@ -71,7 +74,10 @@ class CategoryActions extends Column
                         'label' => __('Edit'),
                     ];
 //                    $item[$name]['delete'] = [
-//                        'href' => $this->urlBuilder->getUrl($this->deleteUrl, ['category_id' => $item['category_id']]),
+//                        'href' => $this->urlBuilder->getUrl(
+//                              $this->deleteUrl,
+//                              ['category_id' => $item['category_id']]
+//                         ),
 //                        'label' => __('Delete'),
 //                    ];
                 }

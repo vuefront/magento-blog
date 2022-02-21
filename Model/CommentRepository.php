@@ -55,6 +55,15 @@ class CommentRepository implements CommentRepositoryInterface
      */
     private $hydrator;
 
+    /**
+     * CommentRepository constructor.
+     * @param ResourceComment $resource
+     * @param CommentCollectionFactory $commentCollectionFactory
+     * @param CommentSearchResultsInterfaceFactory $commentSearchResultsInterfaceFactory
+     * @param CommentInterfaceFactory $commentInterfaceFactory
+     * @param DataObjectHelper $dataObjectHelper
+     * @param HydratorInterface|null $hydrator
+     */
     public function __construct(
         ResourceComment $resource,
         CommentCollectionFactory $commentCollectionFactory,
@@ -187,7 +196,11 @@ class CommentRepository implements CommentRepositoryInterface
              * @var CommentInterface $commentDataObject
              */
             $commentDataObject = $this->commentInterfaceFactory->create();
-            $this->dataObjectHelper->populateWithArray($commentDataObject, $comment->getData(), CommentInterface::class);
+            $this->dataObjectHelper->populateWithArray(
+                $commentDataObject,
+                $comment->getData(),
+                CommentInterface::class
+            );
             $comments[] = $commentDataObject;
         }
         $searchResults->setTotalCount($collection->getSize());

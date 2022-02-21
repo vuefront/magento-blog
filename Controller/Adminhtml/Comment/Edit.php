@@ -14,8 +14,6 @@ class Edit extends \Magento\Backend\App\Action
      */
     public $commentRepository;
     /**
-     * Core registry.
-     *
      * @var \Magento\Framework\Registry
      */
     protected $_coreRegistry = null;
@@ -25,6 +23,13 @@ class Edit extends \Magento\Backend\App\Action
      */
     protected $resultPageFactory;
 
+    /**
+     * Edit constructor.
+     * @param \Magento\Backend\App\Action\Context $context
+     * @param CommentRepositoryInterface $commentRepository
+     * @param \Magento\Framework\View\Result\PageFactory $resultPageFactory
+     * @param \Magento\Framework\Registry $registry
+     */
     public function __construct(
         \Magento\Backend\App\Action\Context $context,
         CommentRepositoryInterface $commentRepository,
@@ -38,7 +43,9 @@ class Edit extends \Magento\Backend\App\Action
     }
 
     /**
-     * {@inheritdoc}
+     * Is Allowed
+     *
+     * @return bool
      */
     protected function _isAllowed()
     {
@@ -52,8 +59,6 @@ class Edit extends \Magento\Backend\App\Action
      */
     protected function _initAction()
     {
-        // load layout, set active menu and breadcrumbs
-        /** @var \Magento\Backend\Model\View\Result\Page $resultPage */
         $resultPage = $this->resultPageFactory->create();
         $resultPage->setActiveMenu('Vuefront_Blog::blog_comment')
             ->addBreadcrumb(__('Comment'), __('Comment'))
@@ -62,6 +67,11 @@ class Edit extends \Magento\Backend\App\Action
         return $resultPage;
     }
 
+    /**
+     * Init Comment
+     *
+     * @return mixed
+     */
     private function _initComment()
     {
         $commentId = $this->getRequest()->getParam('comment_id');
@@ -72,6 +82,8 @@ class Edit extends \Magento\Backend\App\Action
     }
 
     /**
+     * Execute
+     *
      * @return \Magento\Backend\Model\View\Result\Page
      */
     public function execute()
@@ -99,5 +111,4 @@ class Edit extends \Magento\Backend\App\Action
 
         return $resultPage;
     }
-
 }

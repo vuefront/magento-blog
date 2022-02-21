@@ -4,6 +4,9 @@ namespace Vuefront\Blog\Model\ResourceModel\Comment;
 
 class Collection extends \Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection
 {
+    /**
+     * Constructor
+     */
     protected function _construct()
     {
         parent::_construct();

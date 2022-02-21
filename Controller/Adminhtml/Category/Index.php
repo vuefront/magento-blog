@@ -12,12 +12,9 @@ use Magento\Framework\App\Action\HttpGetActionInterface;
 use Magento\Framework\View\Result\Page;
 use Magento\Framework\View\Result\PageFactory;
 
-/**
- * Class Index.
- */
 class Index extends Action implements HttpGetActionInterface
 {
-    const MENU_ID = 'Vuefront_Blog::blog_category';
+    public const MENU_ID = 'Vuefront_Blog::blog_category';
 
     /**
      * @var PageFactory
@@ -26,6 +23,8 @@ class Index extends Action implements HttpGetActionInterface
 
     /**
      * Index constructor.
+     * @param Context $context
+     * @param PageFactory $resultPageFactory
      */
     public function __construct(
         Context $context,

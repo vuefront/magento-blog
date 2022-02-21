@@ -6,11 +6,20 @@ use Magento\Framework\Model\AbstractModel;
 
 class Category extends \Magento\Framework\Model\ResourceModel\Db\AbstractDb
 {
+    /**
+     * Category construcor
+     */
     protected function _construct()
     {
         $this->_init('vuefront_blog_category', 'category_id');
     }
 
+    /**
+     * After Load
+     *
+     * @param AbstractModel $object
+     * @return Category
+     */
     protected function _afterLoad(AbstractModel $object)
     {
         if ($object->getId()) {
@@ -20,6 +29,12 @@ class Category extends \Magento\Framework\Model\ResourceModel\Db\AbstractDb
         return parent::_afterLoad($object);
     }
 
+    /**
+     * After Save
+     *
+     * @param AbstractModel $object
+     * @return Category
+     */
     protected function _afterSave(\Magento\Framework\Model\AbstractModel $object)
     {
         $oldStores = $this->lookupStoreIds((int)$object->getId());

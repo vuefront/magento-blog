@@ -4,6 +4,7 @@ namespace Vuefront\Blog\Model\ResourceModel\Post;
 
 use Magento\Store\Model\StoreManagerInterface;
 use \Vuefront\Blog\Api\CategoryRepositoryInterface;
+use Magento\Framework\Exception\NoSuchEntityException;
 
 class Collection extends \Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection
 {
@@ -33,6 +34,17 @@ class Collection extends \Magento\Framework\Model\ResourceModel\Db\Collection\Ab
      */
     protected $categoryRepository;
 
+    /**
+     * Collection constructor.
+     * @param CategoryRepositoryInterface $categoryRepository
+     * @param StoreManagerInterface $storeManager
+     * @param \Magento\Framework\Data\Collection\EntityFactoryInterface $entityFactory
+     * @param \Psr\Log\LoggerInterface $logger
+     * @param \Magento\Framework\Data\Collection\Db\FetchStrategyInterface $fetchStrategy
+     * @param \Magento\Framework\Event\ManagerInterface $eventManager
+     * @param \Magento\Framework\DB\Adapter\AdapterInterface|null $connection
+     * @param \Magento\Framework\Model\ResourceModel\Db\AbstractDb|null $resource
+     */
     public function __construct(
         CategoryRepositoryInterface $categoryRepository,
         StoreManagerInterface $storeManager,
@@ -42,13 +54,15 @@ class Collection extends \Magento\Framework\Model\ResourceModel\Db\Collection\Ab
         \Magento\Framework\Event\ManagerInterface $eventManager,
         \Magento\Framework\DB\Adapter\AdapterInterface $connection = null,
         \Magento\Framework\Model\ResourceModel\Db\AbstractDb $resource = null
-    )
-    {
+    ) {
         parent::__construct($entityFactory, $logger, $fetchStrategy, $eventManager, $connection, $resource);
         $this->storeManager = $storeManager;
         $this->categoryRepository = $categoryRepository;
     }
 
+    /**
+     * Constructor
+     */
     protected function _construct()
     {
         parent::_construct();
@@ -66,6 +80,7 @@ class Collection extends \Magento\Framework\Model\ResourceModel\Db\Collection\Ab
      *
      * @param string|array $field
      * @param null|string|array $condition
+     *
      * @return $this
      */
     public function addFieldToFilter($field, $condition = null)
@@ -92,8 +107,10 @@ class Collection extends \Magento\Framework\Model\ResourceModel\Db\Collection\Ab
 
     /**
      * Add category filter to collection
-     * @param array|int|\Vuefront\Blog\Model\Category  $category
+     *
+     * @param array|int|\Vuefront\Blog\Model\Category $category
      * @param boolean $withAdmin
+     *
      * @return $this
      */
     public function addCategoryFilter($category, $withAdmin = true)
@@ -142,12 +159,9 @@ class Collection extends \Magento\Framework\Model\ResourceModel\Db\Collection\Ab
 
                 if (1 === count($categories)) {
                     /* Fix for graphQL to get posts from child categories when filtering by category */
-                    try {
                         $category = $this->categoryRepository->getById($categories[0]);
-                        if ($category->getId()) {
-                            return $this->addCategoryFilter($category);
-                        }
-                    } catch (\NoSuchEntityException $e) {
+                    if ($category->getId()) {
+                        return $this->addCategoryFilter($category);
                     }
                 }
             }
@@ -186,10 +200,12 @@ class Collection extends \Magento\Framework\Model\ResourceModel\Db\Collection\Ab
         }
         parent::_renderFiltersBefore();
     }
+
     /**
-     * Add store filter to collection
-     * @param array|int|\Magento\Store\Model\Store  $store
-     * @param boolean $withAdmin
+     * Add Store Filter
+     *
+     * @param int|array|Magento\Store\Model\Store $store
+     * @param bool $withAdmin
      * @return $this
      */
     public function addStoreFilter($store, $withAdmin = true)
@@ -222,7 +238,6 @@ class Collection extends \Magento\Framework\Model\ResourceModel\Db\Collection\Ab
         }
         return $this;
     }
-
 
     /**
      * Perform operations after collection load

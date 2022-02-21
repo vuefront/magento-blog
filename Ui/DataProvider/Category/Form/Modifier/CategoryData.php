@@ -12,6 +12,8 @@ class CategoryData implements ModifierInterface
     public $collection;
 
     /**
+     * CategoryData constructor.
+     *
      * @param CollectionFactory $categoryCollectionFactory
      */
     public function __construct(
@@ -20,8 +22,10 @@ class CategoryData implements ModifierInterface
         $this->collection = $categoryCollectionFactory;
     }
 
-    /*
+    /**
      * Get Collection
+     *
+     * @return \Vuefront\Blog\Model\ResourceModel\Category\Collection
      */
     public function getCollection()
     {
@@ -29,6 +33,8 @@ class CategoryData implements ModifierInterface
     }
 
     /**
+     * Modify Meta
+     *
      * @param array $meta
      * @return array
      */
@@ -38,6 +44,8 @@ class CategoryData implements ModifierInterface
     }
 
     /**
+     * Modify data
+     *
      * @param array $data
      * @return array|mixed
      * @throws \Magento\Framework\Exception\LocalizedException

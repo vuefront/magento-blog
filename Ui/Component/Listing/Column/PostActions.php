@@ -11,8 +11,8 @@ use Vuefront\Blog\Block\Adminhtml\Post\Grid\Renderer\Action\UrlBuilder;
 class PostActions extends Column
 {
     /** Url Path */
-    const BLOG_URL_PATH_EDIT = 'vuefront_blog/post/edit';
-    const BLOG_URL_PATH_DELETE = 'vuefront_blog/post/delete';
+    public const BLOG_URL_PATH_EDIT = 'vuefront_blog/post/edit';
+    public const BLOG_URL_PATH_DELETE = 'vuefront_blog/post/delete';
 
     /** @var UrlBuilder */
     protected $actionUrlBuilder;
@@ -52,6 +52,7 @@ class PostActions extends Column
     /**
      * Prepare Data Source.
      *
+     * @param array $dataSource
      * @return array
      */
     public function prepareDataSource(array $dataSource)

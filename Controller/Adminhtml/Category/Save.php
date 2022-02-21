@@ -46,22 +46,16 @@ class Save extends Action
     public $urlRewrite;
 
     /**
-     * Url rewrite service
-     *
      * @var $urlRewriteService
      */
     public $urlRewriteService;
 
     /**
-     * Url finder
-     *
      * @var UrlFinderInterface
      */
     public $urlFinder;
 
     /**
-     * Store manager
-     *
      * @var StoreManagerInterface
      */
     public $storeManager;
@@ -71,10 +65,29 @@ class Save extends Action
      */
     public $urlRewriteFactory;
 
+    /**
+     * @var string
+     */
     private $urlPrefix;
 
+    /**
+     * @var string
+     */
     private $urlExtension;
 
+    /**
+     * Save constructor.
+     *
+     * @param UrlFinderInterface $urlFinder
+     * @param UrlRewriteFactory $urlRewriteFactory
+     * @param DataObjectProcessor $dataObjectProcessor
+     * @param StoreManagerInterface $storeManager
+     * @param BaseUrlRewrite $urlRewrite
+     * @param CategoryRepositoryInterface $categoryRepository
+     * @param CategoryInterfaceFactory $categoryFactory
+     * @param Context $context
+     * @param UploaderPool $uploaderPool
+     */
     public function __construct(
         UrlFinderInterface $urlFinder,
         UrlRewriteFactory $urlRewriteFactory,
@@ -100,6 +113,11 @@ class Save extends Action
         parent::__construct($context);
     }
 
+    /**
+     * Execute
+     *
+     * @return \Magento\Framework\App\ResponseInterface|\Magento\Framework\Controller\Result\Redirect|\Magento\Framework\Controller\ResultInterface
+     */
     public function execute()
     {
         $category = null;
@@ -124,7 +142,11 @@ class Save extends Action
                 $category->setStoreId($data['store_id']);
 
                 if (!empty($data["keyword"])) {
-                    $this->saveUrlRewrite($data["keyword"], $category->getId(), $this->storeManager->getStore()->getId());
+                    $this->saveUrlRewrite(
+                        $data["keyword"],
+                        $category->getId(),
+                        $this->storeManager->getStore()->getId()
+                    );
                 }
                 if (!empty($data['parent_id'])) {
                     $category->setParentId($data['parent_id']);
@@ -170,7 +192,9 @@ class Save extends Action
     }
 
     /**
-     * @param $type
+     * Get Uploader
+     *
+     * @param string $type
      * @return Uploader
      * @throws \Exception
      */
@@ -180,7 +204,9 @@ class Save extends Action
     }
 
     /**
-     * @param $categoryData
+     * Store Category Data To Session
+     *
+     * @param mixed $categoryData
      */
     private function storeCategoryDataToSession($categoryData)
     {
@@ -189,9 +215,9 @@ class Save extends Action
     /**
      * Saves the url rewrite for that specific store
      *
-     * @param  $link string
-     * @param  $id int
-     * @param  $storeId int
+     * @param string $link
+     * @param int $id
+     * @param int $storeId
      * @return void
      */
     private function saveUrlRewrite($link, $id, $storeId)

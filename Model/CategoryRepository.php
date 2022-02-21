@@ -38,8 +38,8 @@ class CategoryRepository implements CategoryRepositoryInterface
      */
     public $categoryCollectionFactory;
     /**
-    * @var StoreManagerInterface
-    */
+     * @var StoreManagerInterface
+     */
     public $storeManager;
 
     /**
@@ -60,6 +60,16 @@ class CategoryRepository implements CategoryRepositoryInterface
      */
     private $hydrator;
 
+    /**
+     * CategoryRepository constructor.
+     * @param ResourceCategory $resource
+     * @param CategoryCollectionFactory $categoryCollectionFactory
+     * @param CategorySearchResultsInterfaceFactory $categorySearchResultsInterfaceFactory
+     * @param CategoryInterfaceFactory $categoryInterfaceFactory
+     * @param DataObjectHelper $dataObjectHelper
+     * @param StoreManagerInterface $storeManager
+     * @param HydratorInterface|null $hydrator
+     */
     public function __construct(
         ResourceCategory $resource,
         CategoryCollectionFactory $categoryCollectionFactory,
@@ -199,7 +209,11 @@ class CategoryRepository implements CategoryRepositoryInterface
              * @var CategoryInterface $categoryDataObject
              */
             $categoryDataObject = $this->categoryInterfaceFactory->create();
-            $this->dataObjectHelper->populateWithArray($categoryDataObject, $category->getData(), CategoryInterface::class);
+            $this->dataObjectHelper->populateWithArray(
+                $categoryDataObject,
+                $category->getData(),
+                CategoryInterface::class
+            );
             $categories[] = $categoryDataObject;
         }
         $searchResults->setTotalCount($collection->getSize());

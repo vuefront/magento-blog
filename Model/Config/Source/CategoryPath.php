@@ -2,12 +2,14 @@
 
 namespace Vuefront\Blog\Model\Config\Source;
 
-/**
- * Used in recent post widget
- *
- */
 class CategoryPath extends CategoryTree
 {
+    /**
+     * Get Options
+     *
+     * @param int $itemId
+     * @return array
+     */
     protected function _getOptions($itemId = 0)
     {
         $childs =  $this->_getChilds();

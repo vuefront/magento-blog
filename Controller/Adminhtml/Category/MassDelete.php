@@ -20,6 +20,12 @@ class MassDelete extends Action
      */
     public $categoryFactory;
 
+    /**
+     * MassDelete constructor.
+     * @param CategoryRepositoryInterface $categoryRepository
+     * @param CategoryInterfaceFactory $categoryFactory
+     * @param Context $context
+     */
     public function __construct(
         CategoryRepositoryInterface $categoryRepository,
         CategoryInterfaceFactory $categoryFactory,
@@ -30,6 +36,8 @@ class MassDelete extends Action
         parent::__construct($context);
     }
     /**
+     * Execute
+     *
      * @return \Magento\Framework\Controller\Result\Redirect
      */
     public function execute()

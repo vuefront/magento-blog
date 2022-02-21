@@ -14,8 +14,6 @@ class Edit extends \Magento\Backend\App\Action
      */
     public $postRepository;
     /**
-     * Core registry.
-     *
      * @var \Magento\Framework\Registry
      */
     protected $_coreRegistry = null;
@@ -25,6 +23,13 @@ class Edit extends \Magento\Backend\App\Action
      */
     protected $resultPageFactory;
 
+    /**
+     * Edit constructor.
+     * @param \Magento\Backend\App\Action\Context $context
+     * @param PostRepositoryInterface $postRepository
+     * @param \Magento\Framework\View\Result\PageFactory $resultPageFactory
+     * @param \Magento\Framework\Registry $registry
+     */
     public function __construct(
         \Magento\Backend\App\Action\Context $context,
         PostRepositoryInterface $postRepository,
@@ -38,7 +43,9 @@ class Edit extends \Magento\Backend\App\Action
     }
 
     /**
-     * {@inheritdoc}
+     * Is allowed
+     *
+     * @return bool
      */
     protected function _isAllowed()
     {
@@ -52,8 +59,6 @@ class Edit extends \Magento\Backend\App\Action
      */
     protected function _initAction()
     {
-        // load layout, set active menu and breadcrumbs
-        /** @var \Magento\Backend\Model\View\Result\Page $resultPage */
         $resultPage = $this->resultPageFactory->create();
         $resultPage->setActiveMenu('Vuefront_Blog::blog_posts')
             ->addBreadcrumb(__('Post'), __('Post'))
@@ -62,6 +67,11 @@ class Edit extends \Magento\Backend\App\Action
         return $resultPage;
     }
 
+    /**
+     * Init Post
+     *
+     * @return mixed
+     */
     private function _initPost()
     {
         $postId = $this->getRequest()->getParam('post_id');
@@ -71,6 +81,8 @@ class Edit extends \Magento\Backend\App\Action
     }
 
     /**
+     * Execute
+     *
      * @return \Magento\Backend\Model\View\Result\Page
      */
     public function execute()

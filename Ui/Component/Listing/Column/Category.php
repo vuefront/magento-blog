@@ -7,9 +7,6 @@ use Magento\Framework\View\Element\UiComponentFactory;
 use Magento\Ui\Component\Listing\Columns\Column;
 use \Vuefront\Blog\Model\CategoryRepository;
 
-/**
- * Class Category
- */
 class Category extends Column
 {
     /**
@@ -17,8 +14,6 @@ class Category extends Column
      */
     protected $resource;
     /**
-     * Escaper
-     *
      * @var \Magento\Framework\Escaper
      */
     protected $escaper;
@@ -29,12 +24,14 @@ class Category extends Column
     protected $categoryKey;
 
     /**
+     * Category constructor.
      * @param ContextInterface $context
      * @param UiComponentFactory $uiComponentFactory
+     * @param CategoryRepository $resource
      * @param Escaper $escaper
      * @param array $components
      * @param array $data
-     * @param string $storeKey
+     * @param string $categoryKey
      */
     public function __construct(
         ContextInterface $context,

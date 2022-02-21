@@ -15,15 +15,13 @@ class Uploader
     /**
      * @var string
      */
-    const IMAGE_TMP_PATH    = 'vuefront_blog/tmp/category/image';
+    public const IMAGE_TMP_PATH    = 'vuefront_blog/tmp/category/image';
     /**
      * @var string
      */
-    const IMAGE_PATH        = 'vuefront_blog/category/image';
+    public const IMAGE_PATH        = 'vuefront_blog/category/image';
 
     /**
-     * Core file storage database
-     *
      * @var \Magento\MediaStorage\Helper\File\Storage\Database
      */
     public $coreFileStorageDatabase;
@@ -36,15 +34,11 @@ class Uploader
     public $mediaDirectory;
 
     /**
-     * Uploader factory
-     *
      * @var \Magento\MediaStorage\Model\File\UploaderFactory
      */
     private $uploaderFactory;
 
     /**
-     * Store manager
-     *
      * @var \Magento\Store\Model\StoreManagerInterface
      */
     public $storeManager;
@@ -55,35 +49,31 @@ class Uploader
     public $logger;
 
     /**
-     * Base tmp path
-     *
      * @var string
      */
     public $baseTmpPath;
 
     /**
-     * Base path
-     *
      * @var string
      */
     public $basePath;
 
     /**
-     * Allowed extensions
-     *
      * @var array
      */
     public $allowedExtensions;
 
     /**
-     * @param Database              $coreFileStorageDatabase
-     * @param Filesystem            $filesystem
-     * @param UploaderFactory       $uploaderFactory
+     * Uploader constructor.
+     * @param Database $coreFileStorageDatabase
+     * @param Filesystem $filesystem
+     * @param UploaderFactory $uploaderFactory
      * @param StoreManagerInterface $storeManager
-     * @param LoggerInterface       $logger
+     * @param LoggerInterface $logger
      * @param string $baseTmpPath
      * @param string $basePath
-     * @param array                 $allowedExtensions
+     * @param array $allowedExtensions
+     * @throws \Magento\Framework\Exception\FileSystemException
      */
     public function __construct(
         Database $coreFileStorageDatabase,
@@ -219,6 +209,12 @@ class Uploader
         return $name;
     }
 
+    /**
+     * Get Base URL
+     *
+     * @return string
+     * @throws \Magento\Framework\Exception\NoSuchEntityException
+     */
     public function getBaseUrl()
     {
         return $this->storeManager
@@ -275,9 +271,11 @@ class Uploader
     }
 
     /**
-     * @param $input
-     * @param $data
-     * @return string
+     * Upload File And Get Name
+     *
+     * @param mixed $input
+     * @param mixed $data
+     * @return mixed|string
      */
     public function uploadFileAndGetName($input, $data)
     {

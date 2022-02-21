@@ -1,0 +1,88 @@
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="vuefront_blog_category">
+        <column name="category_id" xsi:type="int" identity="true" nullable="false"/>
+        <column name="title" xsi:type="varchar" length="255" comment="Category Title" nullable="true" />
+        <column name="description" xsi:type="text" nullable="true"/>
+        <column name="parent_id" xsi:type="int" nullable="true"/>
+        <column name="image" xsi:type="varchar" length="255" nullable="true"/>
+        <column name="keyword" xsi:type="varchar" length="100" nullable="true"/>
+        <column name="sort_order" xsi:type="int" nullable="false" default="0"/>
+        <column name="meta_title" xsi:type="varchar" length="255" nullable="false" default="" />
+        <column name="meta_description" xsi:type="text" nullable="false" />
+        <column name="meta_keywords" xsi:type="varchar" length="255" nullable="false" default="" />
+        <column name="date_added" xsi:type="timestamp" nullable="false" default="CURRENT_TIMESTAMP" comment="Date Added"/>
+        <column name="date_modified" xsi:type="timestamp" nullable="false" default="CURRENT_TIMESTAMP" comment="Date Modified"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="category_id"/>
+        </constraint>
+     </table>
+    <table name="vuefront_blog_category_store">
+        <column name="category_id" xsi:type="int" nullable="false"/>
+        <column name="store_id" xsi:type="smallint" nullable="false" unsigned="true"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="category_id" />
+            <column name="store_id"/>
+        </constraint>
+        <index referenceId="IDX_BLOG_CATEGORY_STORE_ID">
+            <column name="store_id"/>
+        </index>
+        <constraint referenceId="vuefront_blog_category_store_foreign_store_id" xsi:type="foreign" column="store_id" referenceTable="store" referenceColumn="store_id" onDelete="CASCADE"/>
+        <constraint referenceId="vuefront_blog_category_store_foreign_category_id" xsi:type="foreign" column="category_id" referenceTable="vuefront_blog_category" referenceColumn="category_id" onDelete="CASCADE"/>
+    </table>
+    <table name="vuefront_blog_post">
+        <column name="post_id" xsi:type="int" identity="true" nullable="false" comment="Post ID"/>
+        <column name="title" xsi:type="varchar" length="255" nullable="true" comment="Post Title"/>
+        <column name="description" xsi:type="text" nullable="true" comment="Post Description"/>
+        <column name="short_description" xsi:type="text" nullable="true" comment="Post short description" />
+        <column name="image" xsi:type="varchar" length="255" nullable="true" comment="Post Image"/>
+        <column name="keyword" xsi:type="varchar" length="100" nullable="true"/>
+        <column name="meta_title" xsi:type="varchar" length="255" nullable="false" default=""/>
+        <column name="meta_keywords" xsi:type="varchar" length="255" nullable="false" default="" />
+        <column name="meta_description" xsi:type="text" nullable="false"/>
+        <column name="date_published" xsi:type="timestamp" default="CURRENT_TIMESTAMP" comment="Date Published" />
+        <column name="date_added" xsi:type="timestamp" default="CURRENT_TIMESTAMP" comment="Date Added" />
+        <column name="date_modified" xsi:type="timestamp" default="CURRENT_TIMESTAMP" comment="Date Modified" />
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="post_id"></column>
+        </constraint>
+    </table>
+    <table name="vuefront_blog_post_category">
+        <column name="post_id" xsi:type="int" nullable="false" />
+        <column name="category_id" xsi:type="int" nullable="false"/>
+        <index referenceId="IDX_vuefront_blog_post_category_CATEGORY_ID">
+            <column name="category_id"/>
+        </index>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="post_id"/>
+            <column name="category_id"/>
+        </constraint>
+        <constraint xsi:type="foreign" referenceId="VUEFRONT_BLOG_POST_CATEGORY_POST_ID" referenceTable="vuefront_blog_post" referenceColumn="post_id" column="post_id" onDelete="CASCADE" />
+        <constraint xsi:type="foreign" referenceId="VUEFRONT_BLOG_POST_CATEGORY_CATEGORY_ID" referenceTable="vuefront_blog_category" referenceColumn="category_id" column="category_id" onDelete="CASCADE" />
+    </table>
+    <table name="vuefront_blog_post_store">
+        <column name="post_id" xsi:type="int" nullable="false" />
+        <column name="store_id" xsi:type="smallint" nullable="false" unsigned="true"/>
+        <index referenceId="IDX_vuefront_blog_post_category_STORE_ID">
+            <column name="store_id"/>
+        </index>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="post_id"/>
+            <column name="store_id"/>
+        </constraint>
+        <constraint xsi:type="foreign" referenceId="VUEFRONT_BLOG_POST_CATEGORY_POST_ID" referenceTable="vuefront_blog_post" referenceColumn="post_id" column="post_id" onDelete="CASCADE" />
+        <constraint xsi:type="foreign" referenceId="VUEFRONT_BLOG_POST_CATEGORY_STORE_ID" referenceTable="store" referenceColumn="store_id" column="store_id" onDelete="CASCADE" />
+    </table>
+    <table name="vuefront_blog_comment">
+        <column name="comment_id" xsi:type="int" nullable="false" identity="true" comment="Comment ID"/>
+        <column name="post_id" xsi:type="int" nullable="true" comment="Post ID" />
+        <column name="author" xsi:type="varchar" length="255" nullable="true" comment="Author"/>
+        <column name="description" xsi:type="text" nullable="true" comment="Description"/>
+        <column name="rating" xsi:type="int" nullable="true" />
+        <column name="status" xsi:type="int" nullable="true" />
+        <column name="date_added" xsi:type="timestamp" nullable="false" default="CURRENT_TIMESTAMP" comment="Date Added"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="comment_id"/>
+        </constraint>
+    </table>
+</schema>

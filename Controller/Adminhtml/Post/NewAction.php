@@ -30,6 +30,11 @@ class NewAction extends Action
      */
     protected $resultForwardFactory;
 
+    /**
+     * NewAction constructor.
+     * @param Action\Context $context
+     * @param \Magento\Backend\Model\View\Result\ForwardFactory $resultForwardFactory
+     */
     public function __construct(
         \Magento\Backend\App\Action\Context $context,
         \Magento\Backend\Model\View\Result\ForwardFactory $resultForwardFactory
@@ -39,7 +44,9 @@ class NewAction extends Action
     }
 
     /**
-     * {@inheritdoc}
+     * Is Allowed
+     *
+     * @return bool
      */
     protected function _isAllowed()
     {

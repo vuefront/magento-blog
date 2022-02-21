@@ -12,6 +12,8 @@ class PostData implements ModifierInterface
     public $collection;
 
     /**
+     * PostData constructor.
+     *
      * @param CollectionFactory $postCollectionFactory
      */
     public function __construct(
@@ -20,8 +22,10 @@ class PostData implements ModifierInterface
         $this->collection = $postCollectionFactory;
     }
 
-    /*
+    /**
      * Get Collection
+     *
+     * @return \Vuefront\Blog\Model\ResourceModel\Post\Collection
      */
     public function getCollection()
     {
@@ -29,6 +33,8 @@ class PostData implements ModifierInterface
     }
 
     /**
+     * Modify Meta
+     *
      * @param array $meta
      * @return array
      */
@@ -38,6 +44,8 @@ class PostData implements ModifierInterface
     }
 
     /**
+     * Modify Data
+     *
      * @param array $data
      * @return array|mixed
      * @throws \Magento\Framework\Exception\LocalizedException
