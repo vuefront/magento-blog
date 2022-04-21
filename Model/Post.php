@@ -182,6 +182,27 @@ class Post extends \Magento\Framework\Model\AbstractModel implements PostInterfa
     }
 
     /**
+     * Get Rating
+     *
+     * @param bool $enabled
+     * @return float|null
+     */
+    public function getRating($enabled = true)
+    {
+        $comments = $this->getComments($enabled);
+
+        if (count($comments) == 0) {
+            return 0;
+        }
+
+        $sum = array_sum(array_map(function ($comment) {
+            return $comment->getRating();
+        }, $comments->getItems()));
+
+        return $sum / count($comments);
+    }
+
+    /**
      * Get Stores
      *
      * @return array|mixed|null
