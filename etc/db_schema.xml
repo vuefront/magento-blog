@@ -24,9 +24,6 @@
             <column name="category_id" />
             <column name="store_id"/>
         </constraint>
-        <index referenceId="IDX_BLOG_CATEGORY_STORE_ID">
-            <column name="store_id"/>
-        </index>
         <constraint referenceId="vuefront_blog_category_store_foreign_store_id" xsi:type="foreign" column="store_id" referenceTable="store" referenceColumn="store_id" onDelete="CASCADE"/>
         <constraint referenceId="vuefront_blog_category_store_foreign_category_id" xsi:type="foreign" column="category_id" referenceTable="vuefront_blog_category" referenceColumn="category_id" onDelete="CASCADE"/>
     </table>
@@ -50,9 +47,6 @@
     <table name="vuefront_blog_post_category">
         <column name="post_id" xsi:type="int" nullable="false" />
         <column name="category_id" xsi:type="int" nullable="false"/>
-        <index referenceId="IDX_vuefront_blog_post_category_CATEGORY_ID">
-            <column name="category_id"/>
-        </index>
         <constraint xsi:type="primary" referenceId="PRIMARY">
             <column name="post_id"/>
             <column name="category_id"/>
@@ -63,9 +57,6 @@
     <table name="vuefront_blog_post_store">
         <column name="post_id" xsi:type="int" nullable="false" />
         <column name="store_id" xsi:type="smallint" nullable="false" unsigned="true"/>
-        <index referenceId="IDX_vuefront_blog_post_category_STORE_ID">
-            <column name="store_id"/>
-        </index>
         <constraint xsi:type="primary" referenceId="PRIMARY">
             <column name="post_id"/>
             <column name="store_id"/>
