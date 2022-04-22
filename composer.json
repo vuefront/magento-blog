@@ -2,7 +2,7 @@
   "name": "vuefront/module-blog",
   "description": "Vuefront Blog for magento2",
   "type": "magento2-module",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "canonical": false,
   "require": {
     "ext-json": "*"
